@@ -19,8 +19,8 @@
             <HBox alignment="CENTER" prefWidth="600.0" spacing="10.0">
                <children>
                 <Button fx:id="arcade" mnemonicParsing="false" onAction="#ArcadeMode" text="Arcade Mode" textAlignment="CENTER" />
-                  <Button fx:id="quickplay" mnemonicParsing="false" text="Quick Play" />
-                  <Button fx:id="pvp" mnemonicParsing="false" text="Player vs Player" />
+                  <Button fx:id="quickplay" mnemonicParsing="false" onAction="#QuickMode" text="Quick Play" />
+                  <Button fx:id="pvp" mnemonicParsing="false" onAction="#PVP" text="Player vs Player" />
                   <Button fx:id="charcreator" mnemonicParsing="false" onAction="#charCreator" text="Character Creator" />
                   <Button fx:id="exit" mnemonicParsing="false" onAction="#ExitProgram" text="Exit the Game" />
                </children>

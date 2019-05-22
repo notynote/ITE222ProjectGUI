@@ -45,6 +45,50 @@ public class MainMenu {
         }
     }
 
+    //Quick Mode Method
+    public void QuickMode(){
+        try {
+
+            FXMLLoader ld = new FXMLLoader();
+            Pane root = ld.load(getClass().getResource("QuickPlay.fxml").openStream());
+            QuickPlay quickplay = (QuickPlay) ld.getController();
+
+            Scene scene = new Scene(root);
+            Stage nStage = new Stage();
+            nStage.setTitle("Quick Play Mode");
+            nStage.setScene(scene);
+
+            p.setDisable(true);
+            nStage.showAndWait();
+            p.setDisable(false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //PVP Mode Method
+    public void PVP(){
+        try {
+
+            FXMLLoader ld = new FXMLLoader();
+            Pane root = ld.load(getClass().getResource("PVP.fxml").openStream());
+            PVP PVPs = (PVP) ld.getController();
+
+            Scene scene = new Scene(root);
+            Stage nStage = new Stage();
+            nStage.setTitle("Player vs Player Mode");
+            nStage.setScene(scene);
+
+            p.setDisable(true);
+            nStage.showAndWait();
+            p.setDisable(false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     //exit method
     public void ExitProgram(){
         System.exit(0);

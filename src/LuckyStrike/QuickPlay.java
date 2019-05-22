@@ -1,17 +1,20 @@
 package LuckyStrike;
 
+import GameCode.CPU;
+import GameCode.Helper;
+import GameCode.Skill;
+import GameCode.Weapon;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
-import java.util.Random;
-import GameCode.*;
 import javafx.stage.Stage;
 
-public class ArcadeMode {
+import java.util.Random;
+
+public class QuickPlay {
 
     //GUI Variable
     @FXML
@@ -48,7 +51,7 @@ public class ArcadeMode {
     //Weapon Array
     private Weapon[] armory;
 
-    public void ArcadeMode() throws InterruptedException {
+    public void QuickPlay() throws InterruptedException {
 
         //variable
         int whowin,starter;
@@ -57,8 +60,29 @@ public class ArcadeMode {
         this.player1 = makeChar();
         display.setText("Your Character:\n" + player1 + "\n==================");
 
-        for (int i = 1; i <= 10; i++ ) {
-            this.battleai = new CPU(i);
+        int cpudiffselect = 0;
+        //Ask what difficulty user want
+        do {
+            try {
+                display.appendText("\n==========\nPlease Choose CPU Difficulty. . .\n0. Random \n1. Noob CPU\n2. Extremely Easy CPU\n3. Very Easy CPU\n4. Easy CPU\n5. Medium CPU" +
+                        "\n6. Hard CPU\n7. Insane CPU\n8. Nightmare CPU\n9. Impossible CPU\n10. The End CPU");
+                //cpudiffselect = Integer.parseInt(console.next());
+                cpudiffselect = Integer.parseInt(getCPUDiff());
+            } catch (Exception ignore){
+
+            }
+        }
+        while (cpudiffselect!=0 && cpudiffselect!=1 && cpudiffselect!=2 && cpudiffselect!=3 && cpudiffselect!=4 && cpudiffselect!=5 && cpudiffselect!=6
+                && cpudiffselect!=7 && cpudiffselect!=8 && cpudiffselect!=9 && cpudiffselect!=10);
+
+        if (cpudiffselect==0) {
+            //create random ai
+            this.battleai = new CPU();
+        } else {
+            //create selected ai
+            this.battleai = new CPU(cpudiffselect);
+
+        }
             display.appendText("\nYou are facing " + battleai + "\n-=-=-=-=-=-=-");
             //Thread.sleep(1000);
             //show character status
@@ -72,29 +96,14 @@ public class ArcadeMode {
                 Annoucer(whowin);
                 //reset turn count
                 turn = 0;
-                if (this.player1.hp <= 0) {
-                    break;
-                }
-                int healamount = i * 100; //recover stage multiply by hundred to hp
-                this.player1.hp += healamount;
-                display.appendText("\n*****\nYou recover " + healamount + " for winning\nNow you have " + player1.hp + "\n*****\n\n");
-                //Thread.sleep(500);
-            } else if (starter == 2){
+            } else {
                 //CPU go first
                 whowin = FightingPVC(2);
                 Annoucer(whowin);
                 //reset turn count
                 turn = 0;
-                if (player1.hp <= 0) {
-                    break;
-                }
-                int healamount = i*100;
-                this.player1.hp += healamount;
-                display.appendText("\n*****\nYour hp recovers by " + healamount + " for winning\nNow you have "+ player1.hp +"\n*****\n\n");
-                //Thread.sleep(500);
-
             }
-        }
+
     }
 
 
@@ -288,7 +297,7 @@ public class ArcadeMode {
         //random found weapon chance (20%)
         foundweapon = Helper.getRandomNumberInRange(1,5);
 
-        //if more than 10 turn and found weapon is true
+        //if more than 5 turn and found weapon is true
         if (turn >= 10 && foundweapon == 3){
 
             //random 1 weapon
@@ -472,6 +481,32 @@ public class ArcadeMode {
             //p.setDisable(false);
 
             String result = choose.choice.getText();
+            return result;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public String getCPUDiff(){
+
+        try {
+            FXMLLoader ld = new FXMLLoader();
+            Pane root = ld.load(getClass().getResource("CPUChoice.fxml").openStream());
+            CPUChoice CPUs = ld.getController();
+
+            Scene scene = new Scene(root);
+            Stage nStage = new Stage();
+            nStage.setTitle("CPU Difficulty");
+            nStage.setScene(scene);
+
+            //p.setDisable(true);
+            nStage.showAndWait();
+            //p.setDisable(false);
+
+            String result = CPUs.choice.getText();
             return result;
 
         } catch (Exception e) {
