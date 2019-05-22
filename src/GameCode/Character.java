@@ -138,6 +138,7 @@ public class Character {
                 this.str = Helper.getRandomNumberInRange(9,15);
                 this.wis = Helper.getRandomNumberInRange(9,15);
                 this.dex = Helper.getRandomNumberInRange(9,15);
+                this.luck = 1;
                 break;
             case 10:
                 this.charname = "The End CPU";

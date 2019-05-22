@@ -50,6 +50,16 @@ public class ArcadeMode {
 
     public void ArcadeMode() throws InterruptedException {
 
+        //preload weapon
+        //Create Array of Weapon
+        armory = new Weapon[5];
+
+        armory[0] = new Weapon("Stick", 5);
+        armory[1] = new Weapon("Wooden Sword", 10);
+        armory[2] = new Weapon("Iron Sword", 20);
+        armory[3] = new Weapon("Magic Sword", 30);
+        armory[4] = new Weapon("Master Sword", 50);
+
         //variable
         int whowin,starter;
 
