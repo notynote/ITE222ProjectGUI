@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane fx:controller="LuckyStrike.MainMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="p" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LuckyStrike.MainMenu">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
@@ -19,11 +18,11 @@
             </ImageView>
             <HBox alignment="CENTER" prefWidth="600.0" spacing="10.0">
                <children>
-                <Button mnemonicParsing="false" text="Arcade Mode" textAlignment="CENTER" />
-                  <Button mnemonicParsing="false" text="Quick Play" />
-                  <Button mnemonicParsing="false" text="Player vs Player" />
-                  <Button mnemonicParsing="false" text="Character Creator" />
-                  <Button mnemonicParsing="false" text="Exit the Game" />
+                <Button fx:id="arcade" mnemonicParsing="false" onAction="#ArcadeMode" text="Arcade Mode" textAlignment="CENTER" />
+                  <Button fx:id="quickplay" mnemonicParsing="false" text="Quick Play" />
+                  <Button fx:id="pvp" mnemonicParsing="false" text="Player vs Player" />
+                  <Button fx:id="charcreator" mnemonicParsing="false" onAction="#charCreator" text="Character Creator" />
+                  <Button fx:id="exit" mnemonicParsing="false" onAction="#ExitProgram" text="Exit the Game" />
                </children>
             </HBox>
          </children>
