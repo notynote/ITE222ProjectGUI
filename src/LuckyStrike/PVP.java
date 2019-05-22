@@ -458,7 +458,7 @@ public class PVP {
 
         //update status text
         p1stattext.setText(player1.toString());
-        p2stattext.setText(battleai.toString());
+        p2stattext.setText(player2.toString());
 
     }
 
