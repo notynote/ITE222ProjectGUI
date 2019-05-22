@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="p" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LuckyStrike.CPUChoice">
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+   <bottom>
+      <HBox spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="choice" onAction="#Backtomenu" />
+            <Button fx:id="confirm" mnemonicParsing="false" onAction="#Backtomenu" text="Confirm" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" />
+         </padding>
+      </HBox>
+   </bottom>
+   <center>
+      <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <Button fx:id="first" mnemonicParsing="false" onAction="#setTextchoice1" text="1" />
+                  <Button fx:id="two" mnemonicParsing="false" onAction="#setTextchoice2" text="2" />
+                  <Button fx:id="three" mnemonicParsing="false" onAction="#setTextchoice3" text="3" />
+                  <Button fx:id="four" mnemonicParsing="false" onAction="#setTextchoice4" text="4" />
+                  <Button fx:id="five" mnemonicParsing="false" onAction="#setTextchoice5" text="5" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <Button fx:id="six" mnemonicParsing="false" onAction="#setTextchoice6" text="6" />
+                  <Button fx:id="seven" mnemonicParsing="false" onAction="#setTextchoice7" text="7" />
+                  <Button fx:id="eight" mnemonicParsing="false" onAction="#setTextchoice8" text="8" />
+                  <Button fx:id="nine" mnemonicParsing="false" onAction="#setTextchoice9" text="9" />
+                  <Button fx:id="ten" mnemonicParsing="false" onAction="#setTextchoice10" text="10" />
+               </children>
+            </HBox>
+            <Button fx:id="random" mnemonicParsing="false" onAction="#setTextchoice0" text="Random" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+</BorderPane>
