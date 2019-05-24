@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -29,6 +31,11 @@ public class PVP {
     private MenuItem StartGame;
     @FXML
     private MenuItem About;
+    @FXML
+    private ImageView p1img;
+    @FXML
+    private ImageView p2img;
+
 
     //global variable
     private GameCode.Character player1;
@@ -75,6 +82,37 @@ public class PVP {
 
         p1stattext.setText(player1.toString());
         p2stattext.setText(player2.toString());
+
+        //setImage
+        int p1classtoimg = GUIHelper.getSetimage(player1.getCharclass());
+        switch (p1classtoimg){
+            case 1:
+                p1img.setImage(new Image("/Resource/Swordsmen.gif"));
+                break;
+            case 2:
+                p1img.setImage(new Image("/Resource/Mage.png"));
+                break;
+            case 3:
+                p1img.setImage(new Image("/Resource/Archer.gif"));
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + p1classtoimg);
+        }
+        int p2classtoimg = GUIHelper.getSetimage(player2.getCharclass());
+        switch (p2classtoimg){
+            case 1:
+                p2img.setImage(new Image("/Resource/Swordsmen.gif"));
+                break;
+            case 2:
+                p2img.setImage(new Image("/Resource/Mage.png"));
+                break;
+            case 3:
+                p2img.setImage(new Image("/Resource/Archer.gif"));
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + p2classtoimg);
+        }
+
         //random who go first
         starter = getStarter();
 
@@ -216,12 +254,48 @@ public class PVP {
         if (winner == 1){
             display.setText("\n**********\n" + player1.getCharname() + " WON the fight!!\n**********");
             //Thread.sleep(500);
+            //setImage
+            int p2classdie = GUIHelper.getSetimage(player2.getCharclass());
+            switch (p2classdie){
+                case 1:
+                    p2img.setImage(new Image("/Resource/Swordsmen.gif"));
+                    break;
+                case 2:
+                    p2img.setImage(new Image("/Resource/DieMage.gif"));
+                    break;
+                case 3:
+                    p2img.setImage(new Image("/Resource/Archer.gif"));
+            }
         } else if (winner == 2){
             display.setText("\n**********\n" + player2.getCharname() + " WON the fight!!\n**********");
             //Thread.sleep(500);
+            //setImage
+            int p1classdie = GUIHelper.getSetimage(player1.getCharclass());
+            switch (p1classdie){
+                case 1:
+                    p1img.setImage(new Image("/Resource/Swordsmen.gif"));
+                    break;
+                case 2:
+                    p1img.setImage(new Image("/Resource/DieMage.gif"));
+                    break;
+                case 3:
+                    p1img.setImage(new Image("/Resource/Archer.gif"));
+            }
         } else {
             display.setText("\n**********\n" + battleai.getCharname() + " WON the fight!!\n**********");
             //Thread.sleep(300);
+            //setImage
+            int p1classdie = GUIHelper.getSetimage(player1.getCharclass());
+            switch (p1classdie){
+                case 1:
+                    p1img.setImage(new Image("/Resource/Swordsmen.gif"));
+                    break;
+                case 2:
+                    p1img.setImage(new Image("/Resource/DieMage.gif"));
+                    break;
+                case 3:
+                    p1img.setImage(new Image("/Resource/Archer.gif"));
+            }
         }
 
     }

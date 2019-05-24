@@ -38,5 +38,20 @@ public class GUIHelper {
         return null;
     }
 
+    //get class to set image
+    public static int getSetimage(String charclass){
+
+        if (charclass.equalsIgnoreCase("Warrior")){
+            return 1;
+        } else if (charclass.equalsIgnoreCase("Mage")){
+            return 2;
+        } else if (charclass.equalsIgnoreCase("Archer")){
+            return 3;
+        } else {
+            return 0;
+        }
+
+    }
+
 
 }
