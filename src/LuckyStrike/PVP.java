@@ -242,7 +242,7 @@ public class PVP {
                 //Thread.sleep(500);
                 display.appendText("\n" + attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend() + "\n3. Check my Status\n4. Check Enemy Status");
 
-                skillchoice = Integer.parseInt(getSkillchoice(attacker.getOffend(),attacker.getNoffend(),"Check my Status","Check Enemy Status"));
+                skillchoice = Integer.parseInt(GUIHelper.getSkillchoice(attacker.getOffend(),attacker.getNoffend(),"Check my Status","Check Enemy Status"));
                 //skillchoice = Integer.parseInt(console.next());
                 if (skillchoice == 3) {
                     display.appendText("\n" + attacker+"\n=================");
@@ -260,7 +260,7 @@ public class PVP {
                 //Thread.sleep(500);
                 display.appendText("\n" + defender.getCharname() + " prepare for defend - What skill do you want to use?\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend()+ "\n3. Check my Status\n4. Check Enemy Status");
 
-                defendchoice = Integer.parseInt(getSkillchoice(defender.getDefend(),defender.getNdefend(),"Check my Status","Check Enemy Status"));
+                defendchoice = Integer.parseInt(GUIHelper.getSkillchoice(defender.getDefend(),defender.getNdefend(),"Check my Status","Check Enemy Status"));
                 //defendchoice = Integer.parseInt(console.next());
                 if (defendchoice == 3) {
                     display.appendText("\n" + defender+"\n=================");
@@ -343,7 +343,7 @@ public class PVP {
             try {
                 display.appendText("\n" + attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend()+ "\n3. Check my Status\n4. Check Enemy Status");
 
-                skillchoice = Integer.parseInt(getSkillchoice(attacker.getOffend(),attacker.getNoffend(),"Check my Status","Check Enemy Status"));
+                skillchoice = Integer.parseInt(GUIHelper.getSkillchoice(attacker.getOffend(),attacker.getNoffend(),"Check my Status","Check Enemy Status"));
                 //skillchoice = Integer.parseInt(console.next());
                 if (skillchoice == 3) {
                     display.appendText("\n" + attacker+"\n=================");
@@ -596,37 +596,6 @@ public class PVP {
         }
 
         return finaldmg;
-    }
-
-    public String getSkillchoice(String one, String two, String three, String four){
-
-        //SkillChoice.first.setText(one);
-        //SkillChoice.two.setText(two);
-        //SkillChoice.three.setText(three);
-        //SkillChoice.four.setText(four);
-
-        try {
-            FXMLLoader ld = new FXMLLoader();
-            Pane root = ld.load(getClass().getResource("SkillChoice.fxml").openStream());
-            SkillChoice choose = ld.getController();
-
-            Scene scene = new Scene(root);
-            Stage nStage = new Stage();
-            nStage.setTitle("Choose");
-            nStage.setScene(scene);
-
-            //p.setDisable(true);
-            nStage.showAndWait();
-            //p.setDisable(false);
-
-            String result = choose.choice.getText();
-            return result;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
 

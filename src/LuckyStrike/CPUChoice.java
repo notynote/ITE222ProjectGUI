@@ -1,5 +1,6 @@
 package LuckyStrike;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -45,49 +46,17 @@ public class CPUChoice {
         stage.close();
     }
 
-    public void setTextchoice1(){
-        choice.setText("1");
-    }
+    public void setTextchoice(ActionEvent event){
 
-    public void setTextchoice2(){
-        choice.setText("2");
-    }
+        Button dummy = (Button) event.getSource();
 
-    public void setTextchoice3(){
-        choice.setText("3");
-    }
+        choice.setText(dummy.getId());
 
-    public void setTextchoice4(){
-        choice.setText("4");
-    }
+        // get a handle to the stage
+        Stage stage = (Stage) confirm.getScene().getWindow();
+        // do what you have to do
+        stage.close();
 
-    public void setTextchoice5(){
-        choice.setText("5");
     }
-
-    public void setTextchoice6(){
-        choice.setText("6");
-    }
-
-    public void setTextchoice7(){
-        choice.setText("7");
-    }
-
-    public void setTextchoice8(){
-        choice.setText("8");
-    }
-
-    public void setTextchoice9(){
-        choice.setText("9");
-    }
-
-    public void setTextchoice10(){
-        choice.setText("10");
-    }
-
-    public void setTextchoice0(){
-        choice.setText("0");
-    }
-
 
 }

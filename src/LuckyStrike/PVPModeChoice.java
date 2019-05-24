@@ -1,5 +1,6 @@
 package LuckyStrike;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -29,16 +30,17 @@ public class PVPModeChoice {
         stage.close();
     }
 
-    public void setTextchoice1(){
-        choice.setText("1");
-    }
+    public void setTextchoice(ActionEvent event){
 
-    public void setTextchoice2(){
-        choice.setText("2");
-    }
+        Button dummy = (Button) event.getSource();
 
-    public void setTextchoice3(){
-        choice.setText("3");
+        choice.setText(dummy.getId());
+
+        // get a handle to the stage
+        Stage stage = (Stage) confirm.getScene().getWindow();
+        // do what you have to do
+        stage.close();
+
     }
 
 

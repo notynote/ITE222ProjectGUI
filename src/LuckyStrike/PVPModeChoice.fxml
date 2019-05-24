@@ -25,9 +25,9 @@
    <center>
       <VBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="first" mnemonicParsing="false" onAction="#setTextchoice1" text="Normal Mode" />
-            <Button fx:id="two" mnemonicParsing="false" onAction="#setTextchoice2" text="Attack Only" />
-            <Button fx:id="three" mnemonicParsing="false" onAction="#setTextchoice3" text="Auto Mode" />
+            <Button id="1" fx:id="first" mnemonicParsing="false" onAction="#setTextchoice" text="Normal Mode" />
+            <Button id="2" fx:id="two" mnemonicParsing="false" onAction="#setTextchoice" text="Attack Only" />
+            <Button id="3" fx:id="three" mnemonicParsing="false" onAction="#setTextchoice" text="Auto Mode" />
          </children>
          <BorderPane.margin>
             <Insets bottom="20.0" />
