@@ -1,5 +1,6 @@
 package LuckyStrike;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -9,13 +10,13 @@ import javafx.stage.Stage;
 public class SkillChoice {
 
     @FXML
-    static Button first;
+    Button first;
     @FXML
-    static Button two;
+    Button two;
     @FXML
-    static Button three;
+    Button three;
     @FXML
-    static Button four;
+    Button four;
     @FXML
     Pane p;
     @FXML
@@ -31,21 +32,27 @@ public class SkillChoice {
         stage.close();
     }
 
-    public void setTextchoice1(){
-        choice.setText("1");
+    //change buntton function
+    public void setButtonName(String one, String two,String three, String four){
+
+        this.first.setText(one);
+        this.two.setText(two);
+        this.three.setText(three);
+        this.four.setText(four);
+
     }
 
-    public void setTextchoice2(){
-        choice.setText("2");
-    }
+    public void setTextchoice(ActionEvent event){
 
-    public void setTextchoice3(){
-        choice.setText("3");
-    }
+        Button dummy = (Button) event.getSource();
 
-    public void setTextchoice4(){
-        choice.setText("4");
-    }
+        choice.setText(dummy.getId());
 
+        // get a handle to the stage
+        Stage stage = (Stage) confirm.getScene().getWindow();
+        // do what you have to do
+        stage.close();
+
+    }
 
 }

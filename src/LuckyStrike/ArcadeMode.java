@@ -462,11 +462,6 @@ public class ArcadeMode {
 
     public String getSkillchoice(String one, String two, String three, String four){
 
-        //SkillChoice.first.setText(one);
-        //SkillChoice.two.setText(two);
-        //SkillChoice.three.setText(three);
-        //SkillChoice.four.setText(four);
-
         try {
             FXMLLoader ld = new FXMLLoader();
             Pane root = ld.load(getClass().getResource("SkillChoice.fxml").openStream());
@@ -476,6 +471,9 @@ public class ArcadeMode {
             Stage nStage = new Stage();
             nStage.setTitle("Choose");
             nStage.setScene(scene);
+
+            //Set buttun text
+            choose.setButtonName(one,two,three,four);
 
             //p.setDisable(true);
             nStage.showAndWait();
