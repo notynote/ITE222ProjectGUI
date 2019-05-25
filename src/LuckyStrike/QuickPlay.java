@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -29,6 +31,10 @@ public class QuickPlay {
     private MenuItem StartGame;
     @FXML
     private MenuItem About;
+    @FXML
+    private ImageView p1img;
+    @FXML
+    private ImageView p2img;
 
     //global variable
     private GameCode.Character player1;
@@ -70,12 +76,12 @@ public class QuickPlay {
         this.player1 = makeChar();
         display.setText("Your Character:\n" + player1 + "\n==================");
 
+
         int cpudiffselect = 0;
         //Ask what difficulty user want
         do {
             try {
-                display.appendText("\n==========\nPlease Choose CPU Difficulty. . .\n0. Random \n1. Noob CPU\n2. Extremely Easy CPU\n3. Very Easy CPU\n4. Easy CPU\n5. Medium CPU" +
-                        "\n6. Hard CPU\n7. Insane CPU\n8. Nightmare CPU\n9. Impossible CPU\n10. The End CPU");
+                display.appendText("\n==========\nPlease Choose CPU Difficulty. . .\n");
                 //cpudiffselect = Integer.parseInt(console.next());
                 cpudiffselect = Integer.parseInt(getCPUDiff());
             } catch (Exception ignore){
@@ -98,6 +104,37 @@ public class QuickPlay {
             //show character status
             p1stattext.setText(player1.toString());
             p2stattext.setText(battleai.toString());
+
+        //setImage
+        int p1classtoimg = GUIHelper.getSetimage(player1.getCharclass());
+        switch (p1classtoimg){
+            case 1:
+                p1img.setImage(new Image("/Resource/Swordsmen.gif"));
+                break;
+            case 2:
+                p1img.setImage(new Image("/Resource/Wizard.gif"));
+                break;
+            case 3:
+                p1img.setImage(new Image("/Resource/Archer.gif"));
+                break;
+            default:
+                p1img.setImage(new Image("/Resource/defaultava.gif"));
+        }
+        int p2classtoimg = GUIHelper.getSetimage(battleai.getCharclass());
+        switch (p2classtoimg){
+            case 1:
+                p2img.setImage(new Image("/Resource/Swordsmen.gif"));
+                break;
+            case 2:
+                p2img.setImage(new Image("/Resource/Wizard.gif"));
+                break;
+            case 3:
+                p2img.setImage(new Image("/Resource/Archer.gif"));
+                break;
+            default:
+                p2img.setImage(new Image("/Resource/defaultava.gif"));
+        }
+
             //random who go first
             starter = getStarter();
             if (starter == 1) {
@@ -333,12 +370,57 @@ public class QuickPlay {
         if (winner == 1){
             display.setText("\n**********\n" + player1.getCharname() + " WON the fight!!\n**********");
             //Thread.sleep(500);
+            //setImage
+            int aiclassdie = GUIHelper.getSetimage(battleai.getCharclass());
+            switch (aiclassdie){
+                case 1:
+                    p2img.setImage(new Image("/Resource/FallingKn.gif"));
+                    break;
+                case 2:
+                    p2img.setImage(new Image("/Resource/DeadWiz.gif"));
+                    break;
+                case 3:
+                    p2img.setImage(new Image("/Resource/DownAr.gif"));
+                    break;
+                default:
+                    p2img.setImage(new Image("/Resource/goddead.gif"));
+            }
         } else if (winner == 2){
             display.setText("\n**********\n" + player2.getCharname() + " WON the fight!!\n**********");
             //Thread.sleep(500);
+            //setImage
+            int p1classdie = GUIHelper.getSetimage(player1.getCharclass());
+            switch (p1classdie){
+                case 1:
+                    p1img.setImage(new Image("/Resource/FallingKn.gif"));
+                    break;
+                case 2:
+                    p1img.setImage(new Image("/Resource/DeadWiz.gif"));
+                    break;
+                case 3:
+                    p1img.setImage(new Image("/Resource/DownAr.gif"));
+                    break;
+                default:
+                    p1img.setImage(new Image("/Resource/goddead.gif"));
+            }
         } else {
             display.setText("\n**********\n" + battleai.getCharname() + " WON the fight!!\n**********");
             //Thread.sleep(300);
+            //setImage
+            int p1classdie = GUIHelper.getSetimage(player1.getCharclass());
+            switch (p1classdie){
+                case 1:
+                    p1img.setImage(new Image("/Resource/FallingKn.gif"));
+                    break;
+                case 2:
+                    p1img.setImage(new Image("/Resource/DeadWiz.gif"));
+                    break;
+                case 3:
+                    p1img.setImage(new Image("/Resource/DownAr.gif"));
+                    break;
+                default:
+                    p1img.setImage(new Image("/Resource/goddead.gif"));
+            }
         }
 
     }
