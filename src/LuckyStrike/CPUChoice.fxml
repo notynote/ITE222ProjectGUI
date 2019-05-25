@@ -25,25 +25,17 @@
    <center>
       <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" spacing="20.0">
-               <children>
-                  <Button id="1" fx:id="first" mnemonicParsing="false" onAction="#setTextchoice" text="1" />
-                  <Button id="2" fx:id="two" mnemonicParsing="false" onAction="#setTextchoice" text="2" />
-                  <Button id="3" fx:id="three" mnemonicParsing="false" onAction="#setTextchoice" text="3" />
-                  <Button id="4" fx:id="four" mnemonicParsing="false" onAction="#setTextchoice" text="4" />
-                  <Button id="5" fx:id="five" mnemonicParsing="false" onAction="#setTextchoice" text="5" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" spacing="20.0">
-               <children>
-                  <Button id="6" fx:id="six" mnemonicParsing="false" onAction="#setTextchoice" text="6" />
-                  <Button id="7" fx:id="seven" mnemonicParsing="false" onAction="#setTextchoice" text="7" />
-                  <Button id="8" fx:id="eight" mnemonicParsing="false" onAction="#setTextchoice" text="8" />
-                  <Button id="9" fx:id="nine" mnemonicParsing="false" onAction="#setTextchoice" text="9" />
-                  <Button id="10" fx:id="ten" mnemonicParsing="false" onAction="#setTextchoice" text="10" />
-               </children>
-            </HBox>
             <Button id="0" fx:id="random" mnemonicParsing="false" onAction="#setTextchoice" text="Random" />
+            <Button id="1" fx:id="first" mnemonicParsing="false" onAction="#setTextchoice" text="Noob CPU" />
+            <Button id="2" fx:id="two" mnemonicParsing="false" onAction="#setTextchoice" text="Extremely Easy CPU" />
+            <Button id="3" fx:id="three" mnemonicParsing="false" onAction="#setTextchoice" text="Very Easy CPU" />
+            <Button id="4" fx:id="four" mnemonicParsing="false" onAction="#setTextchoice" text="Easy CPU" />
+            <Button id="5" fx:id="five" mnemonicParsing="false" onAction="#setTextchoice" text="Medium CPU" />
+            <Button id="6" fx:id="six" mnemonicParsing="false" onAction="#setTextchoice" text="Hard CPU" />
+            <Button id="7" fx:id="seven" mnemonicParsing="false" onAction="#setTextchoice" text="Insane CPU" />
+            <Button id="8" fx:id="eight" mnemonicParsing="false" onAction="#setTextchoice" text="Nightmare CPU" />
+            <Button id="9" fx:id="nine" mnemonicParsing="false" onAction="#setTextchoice" text="Impossible CPU" />
+            <Button id="10" fx:id="ten" mnemonicParsing="false" onAction="#setTextchoice" text="The End CPU" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" />
