@@ -3,13 +3,15 @@ package LuckyStrike;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+
+import java.util.Objects;
 import java.util.Random;
+
 import GameCode.*;
 import javafx.stage.Stage;
 
@@ -35,24 +37,21 @@ public class ArcadeMode {
 
     //global variable
     private GameCode.Character player1;
-    private GameCode.Character player2;
     private GameCode.CPU battleai = null;
     private Random r = new Random();
 
     //Battle variable
-    private int skillchoice = 0,defendchoice = 0;
-    private String attackerskill = "";
-    private String defenderskill = "";
-    private int attackerstatus = 0;
-    private int finaldmg;
+    private int skillchoice = 0;
     private GameCode.Character attacker = null,defender = null;
-    private int dodge = 0;
     private int turn = 0;
-    private int foundweapon = 0;
-    private Weapon holding;
 
     //Weapon Array
     private Weapon[] armory;
+
+//    //Auto Start Game Not Working Yet
+//    public void initialize() throws InterruptedException {
+//        ArcadeMode();
+//    }
 
     public void ArcadeMode() throws InterruptedException {
 
@@ -71,48 +70,24 @@ public class ArcadeMode {
 
         //make character
         this.player1 = makeChar();
-        display.setText("Your Character:\n" + player1 + "\n==================");
+        display.setText("====================\nYour Character:\n" + player1 + "\n====================");
 
         //show character status
         p1stattext.setText(player1.toString());
 
         //setImage
         int p1classtoimg = GUIHelper.getSetimage(player1.getCharclass());
-        switch (p1classtoimg){
-            case 1:
-                p1img.setImage(new Image("/Resource/Swordsmen.gif"));
-                break;
-            case 2:
-                p1img.setImage(new Image("/Resource/Wizard.gif"));
-                break;
-            case 3:
-                p1img.setImage(new Image("/Resource/Archer.gif"));
-                break;
-            default:
-                p1img.setImage(new Image("/Resource/defaultava.gif"));
-        }
+        ArcadeMode.setClassimg(p1classtoimg,p1img);
 
         for (int i = 1; i <= 10; i++ ) {
             this.battleai = new CPU(i);
-            display.appendText("\nYou are facing " + battleai + "\n-=-=-=-=-=-=-");
+            display.appendText("\n====================\nYou are facing " + battleai + "\n====================");
             //Thread.sleep(1000);
             p2stattext.setText(battleai.toString());
 
-
+            //set ai Image
             int p2classtoimg = GUIHelper.getSetimage(battleai.getCharclass());
-            switch (p2classtoimg){
-                case 1:
-                    p2img.setImage(new Image("/Resource/Swordsmen.gif"));
-                    break;
-                case 2:
-                    p2img.setImage(new Image("/Resource/Wizard.gif"));
-                    break;
-                case 3:
-                    p2img.setImage(new Image("/Resource/Archer.gif"));
-                    break;
-                default:
-                    p2img.setImage(new Image("/Resource/defaultava.gif"));
-            }
+            ArcadeMode.setClassimg(p2classtoimg,p2img);
 
             //random who go first
             starter = getStarter();
@@ -127,7 +102,7 @@ public class ArcadeMode {
                 }
                 int healamount = i * 100; //recover stage multiply by hundred to hp
                 this.player1.hp += healamount;
-                display.appendText("\n*****\nYou recover " + healamount + " for winning\nNow you have " + player1.hp + "\n*****\n\n");
+                display.appendText("\n********************\nYour hp recovers by\n        " + healamount + "\n      for winning\n********************\n\nNow you have "+ player1.hp +"\n\n********************\n\n");
                 //Thread.sleep(500);
             } else if (starter == 2){
                 //CPU go first
@@ -140,21 +115,26 @@ public class ArcadeMode {
                 }
                 int healamount = i*100;
                 this.player1.hp += healamount;
-                display.appendText("\n*****\nYour hp recovers by " + healamount + " for winning\nNow you have "+ player1.hp +"\n*****\n\n");
+                display.appendText("\n********************\nYour hp recovers by\n        " + healamount + "\n      for winning\n********************\n\nNow you have "+ player1.hp +"\n\n********************\n\n");
                 //Thread.sleep(500);
 
             }
         }
 
-        display.setText("\n\n********************\n   Congratulation\n********************\n  "+ player1.getCharname() +" Has beaten a game!!!\n********************\n\n");
-        p1img.setImage(new Image("/Resource/giphy.gif"));
-        p2img.setImage(new Image("/Resource/otter2.gif"));
+        if (this.player1.hp >= 1) {
+            display.setText("\n\n********************\n   Congratulation\n********************\n   " + player1.getCharname() + "\n Has beaten a game!!\n********************\n\n");
+            p1img.setImage(new Image("/Resource/giphy.gif"));
+            p2img.setImage(new Image("/Resource/otter2.gif"));
+        } else {
+            display.setText("\n\n!!!!!!!!!!!!!!!!!!!!\n   Game Over\n!!!!!!!!!!!!!!!!!!!!\n\n");
+            p2img.setImage(new Image("/Resource/Gameover.gif"));
+        }
 
     }
 
 
     //define Character method
-    public GameCode.Character makeChar(){
+    private GameCode.Character makeChar(){
 
         try {
             FXMLLoader ld = new FXMLLoader();
@@ -186,7 +166,7 @@ public class ArcadeMode {
         return r.nextInt((2-1)+1) + 1;
     }
 
-    private  int FightingPVC(int Starter) throws InterruptedException{
+    private  int FightingPVC(int Starter){
 
         if (Starter == 1){ //player1 start first
             do {
@@ -229,7 +209,7 @@ public class ArcadeMode {
 
     //player vs cpu fight mode
     //player choose then cpu random
-    private void playvscpu(int player) throws InterruptedException {
+    private void playvscpu(int player) {
 
         //Variable for cpu skill random
         int skillrandom,defendrandom,attackerdmg;
@@ -244,61 +224,63 @@ public class ArcadeMode {
         }
 
         //seperate player and cpu way to attack
+        String attackerskill;
         if (attacker == player1){
             do {
                 try {
                     //Thread.sleep(500);
-                    display.appendText("\n" + attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend()+ "\n3. Check my Status\n4. Check Enemy Status");
+                    display.appendText("\n" + attacker.getCharname() + " turn. What skill do you want to use?\n");
 
-                    skillchoice = Integer.parseInt(GUIHelper.getSkillchoice(attacker.getOffend(),attacker.getNoffend(),"Check my Status","Check Enemy Status"));
+                    skillchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(attacker.getOffend(), attacker.getNoffend(), "Check my Status", "Check Enemy Status")));
                     //skillchoice = Integer.parseInt(console.next());
                     if (skillchoice == 3) {
-                        display.appendText(attacker+"\n=================");
+                        display.appendText(attacker+"\n====================");
                     } else if (skillchoice == 4) {
-                        display.appendText(defender+"\n=================");
+                        display.appendText(defender+"\n====================");
                     }
                 } catch (Exception ignore) {
 
                 }
             } while (skillchoice !=1 && skillchoice!=2);
-            attackerdmg = Attacking(skillchoice);
+            attackerdmg = GUIHelper.Attacking(skillchoice, attacker);
+            attackerskill = GUIHelper.getAtkname(skillchoice, attacker);
         } else {
-            //Thread.sleep(500);
-            display.appendText("\n" + attacker.getCharname() + " turn. Random skill to use.");
+            display.appendText("\n" + attacker.getCharname() + " turn. Random skill to use.\n");
             skillrandom = getStarter();
             if (skillrandom == 1){
-                //Thread.sleep(500);
                 display.appendText("\n" + attacker.getCharname() + " will use \"" +attacker.getOffend() + "\"");
             } else {
-                //Thread.sleep(500);
                 display.appendText("\n" + attacker.getCharname() + " will use \"" +attacker.getNoffend() + "\"");
             }
-            attackerdmg = Attacking(skillrandom);
+            attackerdmg = GUIHelper.Attacking(skillrandom, attacker);
+            attackerskill = GUIHelper.getAtkname(skillrandom, attacker);
         }
         display.appendText("\n========================================");
 
         //player choose defender skill cpu random
+        String defenderskill;
         if (defender == player1){
+            int defendchoice;
             do {
                 assert defender != null;
                 //Thread.sleep(500);
-                display.appendText("\n" + defender.getCharname() + " prepare for defend - What skill do you want to use?\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend()+ "\n3. Check my Status\n4. Check Enemy Status");
+                display.appendText("\n" + defender.getCharname() + " prepare for defend - What skill do you want to use?\n");
 
-                defendchoice = Integer.parseInt(GUIHelper.getSkillchoice(defender.getDefend(),defender.getNdefend(),"Check my Status","Check Enemy Status"));
+                defendchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(defender.getDefend(), defender.getNdefend(), "Check my Status", "Check Enemy Status")));
                 //defendchoice = Integer.parseInt(console.next());
                 if (defendchoice == 3) {
-                    display.appendText("\n" + defender+"\n=================");
+                    display.appendText("\n" + defender+"\n====================");
                 } else if (defendchoice == 4) {
-                    display.appendText("\n" + attacker+"\n=================");
+                    display.appendText("\n" + attacker+"\n====================");
                 }
-            } while (defendchoice!=1 && defendchoice!=2);
+            } while (defendchoice !=1 && defendchoice !=2);
 
-            defenderskill = Defending(defendchoice);
+            defenderskill = GUIHelper.getDefname(defendchoice,defender);
 
         } else {
             assert defender != null;
             //Thread.sleep(500);
-            display.appendText("\n" + defender.getCharname() + " random skill for defend.");
+            display.appendText("\n" + defender.getCharname() + " random skill for defend.\n");
             defendrandom = getStarter();
             if (defendrandom == 1) {
                 //Thread.sleep(500);
@@ -309,31 +291,31 @@ public class ArcadeMode {
             }
             display.appendText("\n========================================");
 
-            defenderskill = Defending(defendrandom);
+            defenderskill = GUIHelper.getDefname(defendrandom,defender);
         }
         //calculation for final damage
         //check the element advantage to determine final damage
-        finaldmg = ElementCheck(attackerskill, defenderskill, attackerdmg);
+        int finaldmg = GUIHelper.ElementCheck(attackerskill, defenderskill, attackerdmg);
 
         //calculate dodge
-        this.dodge = Skill.Dodge(defender.getLuck());
+        int dodge = Skill.Dodge(defender.getLuck());
 
         //if dodged
-        if (this.dodge == 1) {
+        if (dodge == 1) {
 
-            display.appendText("\n***************\n" + attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
+            display.setText("\n********************\n" + attacker.getCharname() + "\n**[" + attackerskill + "]**\n " + defender.getCharname() + "\nfor " + attackerdmg + " damage\n");
             //Thread.sleep(500);
-            display.appendText("\n***************\n" + "but " + defender.getCharname() + " DODGED the attack and take no damage\n***************");
+            display.appendText("\n********************\nbut " + defender.getCharname() + " DODGED the attack and take no damage\n********************\n");
 
         } else {
             //did not dodge
 
-            display.appendText("\n" + attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
+            display.setText("\n********************\n" + attacker.getCharname() + "\n**[" + attackerskill + "]**\n " + defender.getCharname() + "\nfor " + attackerdmg + " damage\n");
             //Thread.sleep(500);
-            display.appendText("\nbut " + defender.getCharname() + " " + defenderskill + " the attack and take " + finaldmg + " damage");
+            display.appendText("\nbut " + defender.getCharname() + "\n**<" + defenderskill + ">** the attack and take\n" + finaldmg + " damage\n");
             defender.hp -= finaldmg;
             //Thread.sleep(500);
-            display.appendText("\n==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
+            display.appendText("\n====================\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n====================\n");
 
         }
 
@@ -341,19 +323,19 @@ public class ArcadeMode {
         turn++;
 
         //random found weapon chance (20%)
-        foundweapon = Helper.getRandomNumberInRange(1,5);
+        int foundweapon = Helper.getRandomNumberInRange(1, 5);
 
         //if more than 10 turn and found weapon is true
         if (turn >= 10 && foundweapon == 3){
 
             //random 1 weapon
-            holding = Helper.FoundWeapon(armory);
-            display.appendText("\n!!!!!!!!!!\n\n" + attacker.getCharname() + " found a " + holding.Name + " (" + holding.Damage + " Damage)");
+            Weapon holding = Helper.FoundWeapon(armory);
+            display.appendText("\n!!!!!!!!!!!!!!!!!!!!\n\n" + attacker.getCharname() + " found a " + holding.Name + " (" + holding.Damage + " Damage)\n");
             //Thread.sleep(500);
-            display.appendText("\n!!!!!!!!!!\n\n" + attacker.getCharname() + " use " + holding.Name + " to attack " + defender.getCharname());
+            display.appendText("\n!!!!!!!!!!!!!!!!!!!!\n\n" + attacker.getCharname() + " use " + holding.Name + " to attack " + defender.getCharname());
             defender.hp -= holding.Damage;
             //Thread.sleep(500);
-            display.appendText("\n==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
+            display.appendText("\n\n====================\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n====================\n");
 
         }
 
@@ -364,192 +346,61 @@ public class ArcadeMode {
     }
 
     //announcer method
-    private void Annoucer(int winner) throws InterruptedException{
+    private void Annoucer(int winner){
 
         if (winner == 1){
-            display.setText("\n**********\n" + player1.getCharname() + " WON the fight!!\n**********");
-            //Thread.sleep(500);
+            display.setText("\n********************\n  " + player1.getCharname() + "\n  WON the fight!!\n********************\n");
             //setImage
             int aiclassdie = GUIHelper.getSetimage(battleai.getCharclass());
-            switch (aiclassdie){
-                case 1:
-                    p2img.setImage(new Image("/Resource/FallingKn.gif"));
-                    break;
-                case 2:
-                    p2img.setImage(new Image("/Resource/DeadWiz.gif"));
-                    break;
-                case 3:
-                    p2img.setImage(new Image("/Resource/DownAr.gif"));
-                    break;
-                default:
-                    p2img.setImage(new Image("/Resource/goddead.gif"));
-            }
+            setImage(aiclassdie,p2img);
         } else if (winner == 2){
-            display.setText("\n**********\n" + battleai.getCharname() + " WON the fight!!\n**********");
-            //Thread.sleep(500);
+            display.setText("\n********************\n  " + battleai.getCharname() + "\n  WON the fight!!\n********************\n");
+
             //setImage
             int p1classdie = GUIHelper.getSetimage(player1.getCharclass());
-            switch (p1classdie){
-                case 1:
-                    p1img.setImage(new Image("/Resource/FallingKn.gif"));
-                    break;
-                case 2:
-                    p1img.setImage(new Image("/Resource/DeadWiz.gif"));
-                    break;
-                case 3:
-                    p1img.setImage(new Image("/Resource/DownAr.gif"));
-                    break;
-                default:
-                    p1img.setImage(new Image("/Resource/goddead.gif"));
-            }
+            setImage(p1classdie,p1img);
         } else {
-            display.setText("\n**********\n" + battleai.getCharname() + " WON the fight!!\n**********");
-            //Thread.sleep(300);
+            display.setText("\n********************\n  " + battleai.getCharname() + "\n  WON the fight!!\n********************\n");
             //setImage
             int p1classdie = GUIHelper.getSetimage(player1.getCharclass());
-            switch (p1classdie){
-                case 1:
-                    p1img.setImage(new Image("/Resource/FallingKn.gif"));
-                    break;
-                case 2:
-                    p1img.setImage(new Image("/Resource/DeadWiz.gif"));
-                    break;
-                case 3:
-                    p1img.setImage(new Image("/Resource/DownAr.gif"));
-                    break;
-                default:
-                    p1img.setImage(new Image("/Resource/goddead.gif"));
-            }
+            setImage(p1classdie,p1img);
         }
 
     }
 
-    //Attacking Method
-    private int Attacking(int skillchoice) {
-
-        switch (skillchoice) {
+    //Set Class Image
+    static void setClassimg(int x, ImageView iv){
+        switch (x){
             case 1:
-                attackerskill = attacker.getOffend();
-                switch (attacker.getCharclass()) {
-                    case "Warrior":
-                        attackerstatus = attacker.getStr();
-                        break;
-                    case "Mage":
-                        attackerstatus = attacker.getWis();
-                        break;
-                    case "Archer":
-                        attackerstatus = attacker.getDex();
-                        break;
-                    //secret class
-                    default:
-                        attackerstatus = 9999;
-                }
+                iv.setImage(new Image("/Resource/Swordsmen.gif"));
                 break;
-
             case 2:
-                attackerskill = attacker.getNoffend();
-                attackerstatus = attacker.getStr() + attacker.getDex() + attacker.getWis();
+                iv.setImage(new Image("/Resource/Wizard.gif"));
                 break;
-
+            case 3:
+                iv.setImage(new Image("/Resource/Archer.gif"));
+                break;
             default:
-                display.appendText("\n\n\nerror");
+                iv.setImage(new Image("/Resource/defaultava.gif"));
         }
-
-        return Skill.OffendDamage(attackerskill, attackerstatus);
-
     }
 
-    //Defending Method
-    private String Defending(int defendchoice){
-        switch (defendchoice) {
+    //Set Dead Image
+    static void setImage(int x, ImageView iv) {
+        switch (x){
             case 1:
-                defenderskill = defender.getDefend();
+                iv.setImage(new Image("/Resource/FallingKn.gif"));
                 break;
-
             case 2:
-                defenderskill = defender.getNdefend();
+                iv.setImage(new Image("/Resource/DeadWiz.gif"));
                 break;
-
-            default:
-                display.appendText("\n\n\nerror");
-        }
-
-        return defenderskill;
-    }
-
-    //Element Checker for final damage
-    private int ElementCheck(String attackerskill,String defenderskill,int attackerdmg){
-
-        switch (attackerskill){
-            case "Stab": //warrior
-                switch (defenderskill){
-                    case "Shield Block": //warrior
-                    case "Normal Defend":
-                        finaldmg = attackerdmg;
-                        break;
-                    case "Ice Wall":
-                        finaldmg = attackerdmg * 2;
-                        break;
-                    case "Dodge":
-                        finaldmg = attackerdmg / 2;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
-                break;
-            case "Cast Spell": //mage
-                switch (defenderskill){
-                    case "Shield Block":
-                        finaldmg = attackerdmg / 2;
-                        break;
-                    case "Ice Wall":
-                    case "Normal Defend":
-                        finaldmg = attackerdmg;
-                        break;
-                    case "Dodge":
-                        finaldmg = attackerdmg * 2;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
-                break;
-            case "Shoot": //archer
-                switch (defenderskill){
-                    case "Shield Block":
-                        finaldmg = attackerdmg * 2;
-                        break;
-                    case "Ice Wall":
-                        finaldmg = attackerdmg / 2;
-                        break;
-                    case "Dodge":
-                    case "Normal Defend":
-                        finaldmg = attackerdmg;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
-                break;
-            case "Normal Attack":
-                switch (defenderskill){
-                    case "Shield Block":
-                    case "Ice Wall":
-                    case "Dodge":
-                        finaldmg = attackerdmg;
-                        break;
-                    case "Normal Defend":
-                        finaldmg = attackerdmg*2;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
+            case 3:
+                iv.setImage(new Image("/Resource/DownAr.gif"));
                 break;
             default:
-                finaldmg = attackerdmg;
+                iv.setImage(new Image("/Resource/goddead.gif"));
         }
-
-        return finaldmg;
     }
-
 
 
 }

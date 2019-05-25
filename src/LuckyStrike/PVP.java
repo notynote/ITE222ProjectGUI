@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class PVP {
@@ -40,15 +41,11 @@ public class PVP {
     //global variable
     private GameCode.Character player1;
     private GameCode.Character player2;
-    private CPU battleai = null;
     private Random r = new Random();
 
     //Battle variable
     private int skillchoice = 0,defendchoice = 0;
     private String attackerskill = "";
-    private String defenderskill = "";
-    private int attackerstatus = 0;
-    private int finaldmg;
     private GameCode.Character attacker = null,defender = null;
     private int dodge = 0;
     private int turn = 0;
@@ -75,9 +72,9 @@ public class PVP {
 
         //make character
         this.player1 = makeChar();
-        display.setText("\nPlayer 1 Character:\n" + player1 + "\n==================");
+        display.setText("\n====================\nPlayer 1 Character:\n" + player1 + "\n====================");
         this.player2 = makeChar();
-        display.appendText("\nPlayer 2 Character:\n" + player2 + "\n==================");
+        display.appendText("\n====================\nPlayer 2 Character:\n" + player2 + "\n====================");
 
 
         p1stattext.setText(player1.toString());
@@ -85,40 +82,16 @@ public class PVP {
 
         //setImage
         int p1classtoimg = GUIHelper.getSetimage(player1.getCharclass());
-        switch (p1classtoimg){
-            case 1:
-                p1img.setImage(new Image("/Resource/Swordsmen.gif"));
-                break;
-            case 2:
-                p1img.setImage(new Image("/Resource/Wizard.gif"));
-                break;
-            case 3:
-                p1img.setImage(new Image("/Resource/Archer.gif"));
-                break;
-            default:
-                p1img.setImage(new Image("/Resource/defaultava.gif"));
-        }
+        ArcadeMode.setClassimg(p1classtoimg,p1img);
         int p2classtoimg = GUIHelper.getSetimage(player2.getCharclass());
-        switch (p2classtoimg){
-            case 1:
-                p2img.setImage(new Image("/Resource/Swordsmen.gif"));
-                break;
-            case 2:
-                p2img.setImage(new Image("/Resource/Wizard.gif"));
-                break;
-            case 3:
-                p2img.setImage(new Image("/Resource/Archer.gif"));
-                break;
-            default:
-                p2img.setImage(new Image("/Resource/defaultava.gif"));
-        }
+        ArcadeMode.setClassimg(p2classtoimg,p2img);
 
         //random who go first
         starter = getStarter();
 
         if (starter == 1){
             //player 1 go first
-            display.appendText("\n" + player1.getCharname() + " go first!!");
+            display.appendText("\n" + player1.getCharname() + " go first!!\n");
             //Thread.sleep(500);
             whowin = FightingPvP(1);
             Annoucer(whowin);
@@ -126,7 +99,7 @@ public class PVP {
             turn = 0;
         } else {
             //player 2 go first
-            display.appendText("\n" + player2.getCharname() + " go first!!");
+            display.appendText("\n" + player2.getCharname() + " go first!!\n");
             //Thread.sleep(500);
             whowin = FightingPvP(2);
             Annoucer(whowin);
@@ -179,9 +152,8 @@ public class PVP {
         //ask for the mode to play
         do {
             try {
-                display.appendText("\n==========\nPlease Choose your game mode. . .\n==========\n");
-                modeselect = Integer.parseInt(PVPModeSelect());
-                //modeselect = Integer.parseInt(console.next());
+                display.appendText("\n====================\n Please Choose your\n     Game mode\n====================\n");
+                modeselect = Integer.parseInt(Objects.requireNonNull(PVPModeSelect()));
             } catch (Exception ignore) {
 
             }
@@ -241,67 +213,23 @@ public class PVP {
     }
 
     //announcer method
-    private void Annoucer(int winner) throws InterruptedException{
+    private void Annoucer(int winner){
 
         if (winner == 1){
-            display.setText("\n**********\n" + player1.getCharname() + " WON the fight!!\n**********");
-            //Thread.sleep(500);
+            display.setText("\n********************\n  " + player1.getCharname() + "\n  WON the fight!!\n********************\n");
             //setImage
             int p2classdie = GUIHelper.getSetimage(player2.getCharclass());
-            switch (p2classdie){
-                case 1:
-                    p2img.setImage(new Image("/Resource/FallingKn.gif"));
-                    break;
-                case 2:
-                    p2img.setImage(new Image("/Resource/DeadWiz.gif"));
-                    break;
-                case 3:
-                    p2img.setImage(new Image("/Resource/DownAr.gif"));
-                    break;
-                default:
-                    p2img.setImage(new Image("/Resource/goddead.gif"));
-            }
+            ArcadeMode.setImage(p2classdie, p2img);
         } else if (winner == 2){
-            display.setText("\n**********\n" + player2.getCharname() + " WON the fight!!\n**********");
-            //Thread.sleep(500);
+            display.setText("\n********************\n  " + player2.getCharname() + "\n  WON the fight!!\n********************\n");
             //setImage
             int p1classdie = GUIHelper.getSetimage(player1.getCharclass());
-            switch (p1classdie){
-                case 1:
-                    p1img.setImage(new Image("/Resource/FallingKn.gif"));
-                    break;
-                case 2:
-                    p1img.setImage(new Image("/Resource/DeadWiz.gif"));
-                    break;
-                case 3:
-                    p1img.setImage(new Image("/Resource/DownAr.gif"));
-                    break;
-                default:
-                    p1img.setImage(new Image("/Resource/goddead.gif"));
-            }
-        } else {
-            display.setText("\n**********\n" + battleai.getCharname() + " WON the fight!!\n**********");
-            //Thread.sleep(300);
-            //setImage
-            int p1classdie = GUIHelper.getSetimage(player1.getCharclass());
-            switch (p1classdie){
-                case 1:
-                    p1img.setImage(new Image("/Resource/Swordsmen.gif"));
-                    break;
-                case 2:
-                    p1img.setImage(new Image("/Resource/DieMage.gif"));
-                    break;
-                case 3:
-                    p1img.setImage(new Image("/Resource/Archer.gif"));
-                    break;
-                default:
-                    p1img.setImage(new Image("/Resource/goddead.gif"));
-            }
+            ArcadeMode.setImage(p1classdie, p1img);
         }
 
     }
 
-    private void fightturn(int player) throws InterruptedException{
+    private void fightturn(int player) {
 
         //ask user to choose attack skill
         do {
@@ -322,25 +250,26 @@ public class PVP {
                 //Thread.sleep(500);
                 display.appendText("\n" + defender.getCharname() + " prepare for defend - What skill do you want to use?\n");
 
-                defendchoice = Integer.parseInt(GUIHelper.getSkillchoice(defender.getDefend(),defender.getNdefend(),"Check my Status","Check Enemy Status"));
+                defendchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(defender.getDefend(), defender.getNdefend(), "Check my Status", "Check Enemy Status")));
                 //defendchoice = Integer.parseInt(console.next());
                 if (defendchoice == 3) {
-                    display.appendText("\n" + defender+"\n=================");
+                    display.appendText("\n" + defender+"\n====================");
                 } else if (defendchoice == 4) {
-                    display.appendText("\n" + attacker+"\n=================");
+                    display.appendText("\n" + attacker+"\n====================");
                 }
             } catch (Exception ignore) {
 
             }
         } while (defendchoice != 1 && defendchoice != 2);
 
-        defenderskill = Defending(defendchoice);
+        String defenderskill = GUIHelper.getDefname(defendchoice, defender);
 
         //calculation for final damage
         //get attack damage
-        int attackerdmg = Attacking(skillchoice);
+        int attackerdmg = GUIHelper.Attacking(skillchoice, attacker);
+        attackerskill = GUIHelper.getAtkname(skillchoice, attacker);
         //check the element advantage to determine final damage
-        finaldmg = ElementCheck(attackerskill, defenderskill, attackerdmg);
+        int finaldmg = GUIHelper.ElementCheck(attackerskill, defenderskill, attackerdmg);
 
         //calculate dodge
         this.dodge = Skill.Dodge(defender.getLuck());
@@ -348,19 +277,16 @@ public class PVP {
         //if dodged
         if (this.dodge == 1) {
 
-            display.appendText("\n***************\n" + attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
-            //Thread.sleep(500);
-            display.appendText("\n***************\n" + "but " + defender.getCharname() + " DODGED the attack and take no damage\n***************");
+            display.setText("\n********************\n" + attacker.getCharname() + "\n**[" + attackerskill + "]**\n " + defender.getCharname() + "\nfor " + attackerdmg + " damage\n");
+            display.appendText("\n********************\nbut " + defender.getCharname() + " DODGED the attack and take no damage\n********************\n");
 
         } else {
             //did not dodge
 
-            display.appendText("\n" + attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
-            //Thread.sleep(500);
-            display.appendText("\nbut " + defender.getCharname() + " " + defenderskill + " the attack and take " + finaldmg + " damage");
+            display.setText("\n********************\n" + attacker.getCharname() + "\n**[" + attackerskill + "]**\n " + defender.getCharname() + "\nfor " + attackerdmg + " damage\n");
+            display.appendText("\nbut " + defender.getCharname() + "\n**<" + defenderskill + ">** the attack and take\n" + finaldmg + " damage\n");
             defender.hp -= finaldmg;
-            //Thread.sleep(500);
-            display.appendText("\n==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
+            display.appendText("\n====================\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n====================\n");
 
         }
 
@@ -395,7 +321,7 @@ public class PVP {
             //Thread.sleep(500);
             display.appendText("\n" + attacker.getCharname() + " turn. What skill do you want to use?\n");
 
-            skillchoice = Integer.parseInt(GUIHelper.getSkillchoice(attacker.getOffend(),attacker.getNoffend(),"Check my Status","Check Enemy Status"));
+            skillchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(attacker.getOffend(), attacker.getNoffend(), "Check my Status", "Check Enemy Status")));
             //skillchoice = Integer.parseInt(console.next());
             if (skillchoice == 3) {
                 display.appendText("\n" + attacker+"\n=================");
@@ -423,7 +349,8 @@ public class PVP {
         } while (skillchoice !=1 && skillchoice !=2);
 
         //get attack damage
-        int attackerdmg = Attacking(skillchoice);
+        int attackerdmg = GUIHelper.Attacking(skillchoice, attacker);
+        attackerskill = GUIHelper.getAtkname(skillchoice, attacker);
 
         //calculate dodge
         this.dodge = Skill.Dodge(defender.getLuck());
@@ -468,134 +395,8 @@ public class PVP {
 
     }
 
-    //Attacking Method
-    private int Attacking(int skillchoice) {
 
-        switch (skillchoice) {
-            case 1:
-                attackerskill = attacker.getOffend();
-                switch (attacker.getCharclass()) {
-                    case "Warrior":
-                        attackerstatus = attacker.getStr();
-                        break;
-                    case "Mage":
-                        attackerstatus = attacker.getWis();
-                        break;
-                    case "Archer":
-                        attackerstatus = attacker.getDex();
-                        break;
-                    //secret class
-                    default:
-                        attackerstatus = 9999;
-                }
-                break;
-
-            case 2:
-                attackerskill = attacker.getNoffend();
-                attackerstatus = attacker.getStr() + attacker.getDex() + attacker.getWis();
-                break;
-
-            default:
-                display.appendText("\n\n\nerror");
-        }
-
-        return Skill.OffendDamage(attackerskill, attackerstatus);
-
-    }
-
-    //Defending Method
-    private String Defending(int defendchoice){
-        switch (defendchoice) {
-            case 1:
-                defenderskill = defender.getDefend();
-                break;
-
-            case 2:
-                defenderskill = defender.getNdefend();
-                break;
-
-            default:
-                display.appendText("\n\n\nerror");
-        }
-
-        return defenderskill;
-    }
-
-    //Element Checker for final damage
-    private int ElementCheck(String attackerskill,String defenderskill,int attackerdmg){
-
-        switch (attackerskill){
-            case "Stab": //warrior
-                switch (defenderskill){
-                    case "Shield Block": //warrior
-                    case "Normal Defend":
-                        finaldmg = attackerdmg;
-                        break;
-                    case "Ice Wall":
-                        finaldmg = attackerdmg * 2;
-                        break;
-                    case "Dodge":
-                        finaldmg = attackerdmg / 2;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
-                break;
-            case "Cast Spell": //mage
-                switch (defenderskill){
-                    case "Shield Block":
-                        finaldmg = attackerdmg / 2;
-                        break;
-                    case "Ice Wall":
-                    case "Normal Defend":
-                        finaldmg = attackerdmg;
-                        break;
-                    case "Dodge":
-                        finaldmg = attackerdmg * 2;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
-                break;
-            case "Shoot": //archer
-                switch (defenderskill){
-                    case "Shield Block":
-                        finaldmg = attackerdmg * 2;
-                        break;
-                    case "Ice Wall":
-                        finaldmg = attackerdmg / 2;
-                        break;
-                    case "Dodge":
-                    case "Normal Defend":
-                        finaldmg = attackerdmg;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
-                break;
-            case "Normal Attack":
-                switch (defenderskill){
-                    case "Shield Block":
-                    case "Ice Wall":
-                    case "Dodge":
-                        finaldmg = attackerdmg;
-                        break;
-                    case "Normal Defend":
-                        finaldmg = attackerdmg*2;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
-                break;
-            default:
-                finaldmg = attackerdmg;
-        }
-
-        return finaldmg;
-    }
-
-
-    public String PVPModeSelect(){
+    private String PVPModeSelect(){
 
         try {
             FXMLLoader ld = new FXMLLoader();
@@ -611,8 +412,7 @@ public class PVP {
             nStage.showAndWait();
             //p.setDisable(false);
 
-            String result = pvpmode.choice.getText();
-            return result;
+            return pvpmode.choice.getText();
 
         } catch (Exception e) {
             e.printStackTrace();

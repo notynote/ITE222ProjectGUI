@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="ITE222ProjectGUI">
+    <output-path>$PROJECT_DIR$/out/artifacts/ITE222ProjectGUI</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="LuckyStrike.Main" />
+        <option name="description" value="" />
+        <option name="height" value="720" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="" />
+        <option name="vendor" value="" />
+        <option name="version" value="1.0" />
+        <option name="width" value="1280" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="ITE222ProjectGUI.jar">
+        <element id="module-output" name="ITE222ProjectGUI" />
+      </element>
+    </root>
+  </artifact>
+</component>
