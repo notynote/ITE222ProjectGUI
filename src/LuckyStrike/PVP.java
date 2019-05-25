@@ -90,7 +90,7 @@ public class PVP {
                 p1img.setImage(new Image("/Resource/Swordsmen.gif"));
                 break;
             case 2:
-                p1img.setImage(new Image("/Resource/Mage.png"));
+                p1img.setImage(new Image("/Resource/Wizard.gif"));
                 break;
             case 3:
                 p1img.setImage(new Image("/Resource/Archer.gif"));
@@ -104,7 +104,7 @@ public class PVP {
                 p2img.setImage(new Image("/Resource/Swordsmen.gif"));
                 break;
             case 2:
-                p2img.setImage(new Image("/Resource/Mage.png"));
+                p2img.setImage(new Image("/Resource/Wizard.gif"));
                 break;
             case 3:
                 p2img.setImage(new Image("/Resource/Archer.gif"));
@@ -258,13 +258,13 @@ public class PVP {
             int p2classdie = GUIHelper.getSetimage(player2.getCharclass());
             switch (p2classdie){
                 case 1:
-                    p2img.setImage(new Image("/Resource/Swordsmen.gif"));
+                    p2img.setImage(new Image("/Resource/FallingKn.gif"));
                     break;
                 case 2:
-                    p2img.setImage(new Image("/Resource/DieMage.gif"));
+                    p2img.setImage(new Image("/Resource/DeadWiz.gif"));
                     break;
                 case 3:
-                    p2img.setImage(new Image("/Resource/Archer.gif"));
+                    p2img.setImage(new Image("/Resource/DownAr.gif"));
             }
         } else if (winner == 2){
             display.setText("\n**********\n" + player2.getCharname() + " WON the fight!!\n**********");
@@ -273,13 +273,13 @@ public class PVP {
             int p1classdie = GUIHelper.getSetimage(player1.getCharclass());
             switch (p1classdie){
                 case 1:
-                    p1img.setImage(new Image("/Resource/Swordsmen.gif"));
+                    p1img.setImage(new Image("/Resource/FallingKn.gif"));
                     break;
                 case 2:
-                    p1img.setImage(new Image("/Resource/DieMage.gif"));
+                    p1img.setImage(new Image("/Resource/DeadWiz.gif"));
                     break;
                 case 3:
-                    p1img.setImage(new Image("/Resource/Archer.gif"));
+                    p1img.setImage(new Image("/Resource/DownAr.gif"));
             }
         } else {
             display.setText("\n**********\n" + battleai.getCharname() + " WON the fight!!\n**********");
