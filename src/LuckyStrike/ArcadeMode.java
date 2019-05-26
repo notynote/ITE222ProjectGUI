@@ -103,7 +103,7 @@ public class ArcadeMode {
                 int healamount = i * 100; //recover stage multiply by hundred to hp
                 this.player1.hp += healamount;
                 display.appendText("\n********************\nYour hp recovers by\n        " + healamount + "\n      for winning\n********************\n\nNow you have "+ player1.hp +"\n\n********************\n\n");
-                //Thread.sleep(500);
+                p1stattext.setText(player1.toString());
             } else if (starter == 2){
                 //CPU go first
                 whowin = FightingPVC(2);
@@ -116,7 +116,7 @@ public class ArcadeMode {
                 int healamount = i*100;
                 this.player1.hp += healamount;
                 display.appendText("\n********************\nYour hp recovers by\n        " + healamount + "\n      for winning\n********************\n\nNow you have "+ player1.hp +"\n\n********************\n\n");
-                //Thread.sleep(500);
+                p1stattext.setText(player1.toString());
 
             }
         }
