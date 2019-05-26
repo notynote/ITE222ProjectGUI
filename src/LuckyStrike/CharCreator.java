@@ -1,11 +1,11 @@
 package LuckyStrike;
 
-import GameCode.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -21,16 +21,19 @@ public class CharCreator {
     private Button BackToMainMenu;
     @FXML
     private Pane p;
+    @FXML
+    private ImageView chartestimg;
 
     //Create test Char Method
-    public void TestChar() throws InterruptedException {
-
-        //variable
-        String again;
+    public void TestChar() {
 
         display.clear();
         GameCode.Character testchar = makeChar();
         display.appendText("====================\n" + testchar + "\n====================");
+
+        //set char image
+        int testcharclass = GUIHelper.getSetimage(testchar.getCharclass());
+        ArcadeMode.setClassimg(testcharclass, chartestimg);
 
     }
 
@@ -43,12 +46,12 @@ public class CharCreator {
     }
 
     //define Character name method
-    public GameCode.Character makeChar(){
+    private GameCode.Character makeChar(){
 
         try {
             FXMLLoader ld = new FXMLLoader();
             Pane root = ld.load(getClass().getResource("CharnameInput.fxml").openStream());
-            CharnameInput nameinput = (CharnameInput) ld.getController();
+            CharnameInput nameinput = ld.getController();
 
             Scene scene = new Scene(root);
             Stage nStage = new Stage();
