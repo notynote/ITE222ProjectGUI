@@ -241,10 +241,22 @@ public class PVP {
                 defender = player1;
             }
 
+
+            //set attack image
+            int atkclasstoimg = GUIHelper.getSetimage(attacker.getCharclass());
+
+            if (attacker == player1) {
+                ArcadeMode.setAtkimg(atkclasstoimg, p1img);
+            } else {
+                ArcadeMode.setAtkimg(atkclasstoimg, p2img);
+            }
+
             ChooseAttackSkill();
+
         } while (skillchoice != 1 && skillchoice != 2);
 
         //defender select skill
+
         do {
             try {
                 //Thread.sleep(500);
@@ -314,6 +326,13 @@ public class PVP {
         p1stattext.setText(player1.toString());
         p2stattext.setText(player2.toString());
 
+        //set image back
+        int atkclasstoimg = GUIHelper.getSetimage(attacker.getCharclass());
+        if (defender == player1) {
+            ArcadeMode.setClassimg(atkclasstoimg, p2img);
+        } else {
+            ArcadeMode.setClassimg(atkclasstoimg, p1img);
+        }
     }
 
     private void ChooseAttackSkill() {

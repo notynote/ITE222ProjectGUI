@@ -103,7 +103,7 @@ public class ArcadeMode {
                 int healamount = i * 100; //recover stage multiply by hundred to hp
                 this.player1.hp += healamount;
                 display.appendText("\n********************\nYour hp recovers by\n        " + healamount + "\n      for winning\n********************\n\nNow you have "+ player1.hp +"\n\n********************\n\n");
-                //Thread.sleep(500);
+                p1stattext.setText(player1.toString());
             } else if (starter == 2){
                 //CPU go first
                 whowin = FightingPVC(2);
@@ -116,7 +116,7 @@ public class ArcadeMode {
                 int healamount = i*100;
                 this.player1.hp += healamount;
                 display.appendText("\n********************\nYour hp recovers by\n        " + healamount + "\n      for winning\n********************\n\nNow you have "+ player1.hp +"\n\n********************\n\n");
-                //Thread.sleep(500);
+                p1stattext.setText(player1.toString());
 
             }
         }
@@ -226,6 +226,10 @@ public class ArcadeMode {
         //seperate player and cpu way to attack
         String attackerskill;
         if (attacker == player1){
+
+            //set attack image
+            int p1classtoimg = GUIHelper.getSetimage(player1.getCharclass());
+            ArcadeMode.setAtkimg(p1classtoimg,p1img);
             do {
                 try {
                     //Thread.sleep(500);
@@ -245,6 +249,9 @@ public class ArcadeMode {
             attackerdmg = GUIHelper.Attacking(skillchoice, attacker);
             attackerskill = GUIHelper.getAtkname(skillchoice, attacker);
         } else {
+            //set attack image
+            int p2classtoimg = GUIHelper.getSetimage(battleai.getCharclass());
+            ArcadeMode.setAtkimg(p2classtoimg,p2img);
             display.appendText("\n" + attacker.getCharname() + " turn. Random skill to use.\n");
             skillrandom = getStarter();
             if (skillrandom == 1){
@@ -254,6 +261,7 @@ public class ArcadeMode {
             }
             attackerdmg = GUIHelper.Attacking(skillrandom, attacker);
             attackerskill = GUIHelper.getAtkname(skillrandom, attacker);
+
         }
         display.appendText("\n========================================");
 
@@ -277,6 +285,10 @@ public class ArcadeMode {
 
             defenderskill = GUIHelper.getDefname(defendchoice,defender);
 
+            //set image back
+            int p2classtoimg = GUIHelper.getSetimage(battleai.getCharclass());
+            ArcadeMode.setClassimg(p2classtoimg,p2img);
+
         } else {
             assert defender != null;
             //Thread.sleep(500);
@@ -292,6 +304,10 @@ public class ArcadeMode {
             display.appendText("\n========================================");
 
             defenderskill = GUIHelper.getDefname(defendrandom,defender);
+
+            //set image back
+            int p1classtoimg = GUIHelper.getSetimage(player1.getCharclass());
+            ArcadeMode.setClassimg(p1classtoimg,p1img);
         }
         //calculation for final damage
         //check the element advantage to determine final damage
@@ -399,6 +415,23 @@ public class ArcadeMode {
                 break;
             default:
                 iv.setImage(new Image("/Resource/goddead.gif"));
+        }
+    }
+
+    //Set Atk Image
+    static void setAtkimg(int x, ImageView iv){
+        switch (x){
+            case 1:
+                iv.setImage(new Image("/Resource/turnswords.gif"));
+                break;
+            case 2:
+                iv.setImage(new Image("/Resource/castmage.gif"));
+                break;
+            case 3:
+                iv.setImage(new Image("/Resource/shotar.gif"));
+                break;
+            default:
+                iv.setImage(new Image("/Resource/defaultava.gif"));
         }
     }
 

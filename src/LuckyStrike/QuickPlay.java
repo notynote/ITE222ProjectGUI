@@ -219,6 +219,11 @@ public class QuickPlay {
         //seperate player and cpu way to attack
         String attackerskill;
         if (attacker == player1){
+
+            //set attack image
+            int p1classtoimg = GUIHelper.getSetimage(player1.getCharclass());
+            ArcadeMode.setAtkimg(p1classtoimg,p1img);
+
             do {
                 try {
                     //Thread.sleep(500);
@@ -238,6 +243,11 @@ public class QuickPlay {
             attackerdmg = GUIHelper.Attacking(skillchoice, attacker);
             attackerskill = GUIHelper.getAtkname(skillchoice, attacker);
         } else {
+
+            //set attack image
+            int p2classtoimg = GUIHelper.getSetimage(battleai.getCharclass());
+            ArcadeMode.setAtkimg(p2classtoimg,p2img);
+
             display.appendText("\n" + attacker.getCharname() + " turn. Random skill to use.\n");
             skillrandom = getStarter();
             if (skillrandom == 1){
@@ -269,6 +279,10 @@ public class QuickPlay {
 
             defenderskill = GUIHelper.getDefname(defendchoice,defender);
 
+            //set image back
+            int p2classtoimg = GUIHelper.getSetimage(battleai.getCharclass());
+            ArcadeMode.setClassimg(p2classtoimg,p2img);
+
         } else {
             assert defender != null;
             //Thread.sleep(500);
@@ -284,6 +298,11 @@ public class QuickPlay {
             display.appendText("\n========================================");
 
             defenderskill = GUIHelper.getDefname(defendrandom,defender);
+
+            //set image back
+            int p1classtoimg = GUIHelper.getSetimage(player1.getCharclass());
+            ArcadeMode.setClassimg(p1classtoimg,p1img);
+
         }
         //calculation for final damage
         //check the element advantage to determine final damage
