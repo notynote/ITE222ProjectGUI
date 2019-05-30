@@ -8,9 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class GUIHelper {
+class GUIHelper {
 
-    public static String getSkillchoice(String one, String two, String three, String four){
+    static String getSkillchoice(String one, String two){
 
         try {
             FXMLLoader ld = new FXMLLoader();
@@ -22,15 +22,14 @@ public class GUIHelper {
             nStage.setTitle("Choose");
             nStage.setScene(scene);
 
-            //Set buttun text
-            choose.setButtonName(one,two,three,four);
+            //Set button text
+            choose.setButtonName(one,two);
 
             //p.setDisable(true);
             nStage.showAndWait();
             //p.setDisable(false);
 
-            String result = choose.choice.getText();
-            return result;
+            return choose.sendBack;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,7 +39,7 @@ public class GUIHelper {
     }
 
     //get class to set image
-    public static int getSetimage(String charclass){
+    static int getSetimage(String charclass){
 
         if (charclass.equalsIgnoreCase("Warrior")){
             return 1;
@@ -180,6 +179,5 @@ public class GUIHelper {
             return defender.getNdefend();
         }
     }
-
 
 }

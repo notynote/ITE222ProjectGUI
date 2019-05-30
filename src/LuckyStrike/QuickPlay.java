@@ -49,7 +49,7 @@ public class QuickPlay {
     //Weapon Array
     private Weapon[] armory;
 
-    public void QuickPlay() {
+    public void QuickPlayStart() {
 
         //preload weapon
         //Create Array of Weapon
@@ -229,7 +229,7 @@ public class QuickPlay {
                     //Thread.sleep(500);
                     display.appendText("\n" + attacker.getCharname() + " turn. What skill do you want to use?\n");
 
-                    skillchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(attacker.getOffend(), attacker.getNoffend(), "Check my Status", "Check Enemy Status")));
+                    skillchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(attacker.getOffend(), attacker.getNoffend())));
 
                     if (skillchoice == 3) {
                         display.appendText(attacker+"\n====================");
@@ -268,7 +268,7 @@ public class QuickPlay {
                 assert defender != null;
                 display.appendText("\n" + defender.getCharname() + " prepare for defend - What skill do you want to use?\n");
 
-                defendchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(defender.getDefend(), defender.getNdefend(), "Check my Status", "Check Enemy Status")));
+                defendchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(defender.getDefend(), defender.getNdefend())));
                 //defendchoice = Integer.parseInt(console.next());
                 if (defendchoice == 3) {
                     display.appendText("\n" + defender+"\n====================");
@@ -398,13 +398,35 @@ public class QuickPlay {
             nStage.showAndWait();
             //p.setDisable(false);
 
-            return CPUs.choice.getText();
+            return CPUs.sendBack;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return null;
+    }
+
+    //open about
+    public void About(){
+
+        try {
+
+            FXMLLoader ld = new FXMLLoader();
+            Pane root = ld.load(getClass().getResource("About.fxml").openStream());
+
+            Scene scene = new Scene(root);
+            Stage nStage = new Stage();
+            nStage.setTitle("About");
+            nStage.setScene(scene);
+
+            p.setDisable(true);
+            nStage.showAndWait();
+            p.setDisable(false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

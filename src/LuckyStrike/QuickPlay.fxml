@@ -12,44 +12,36 @@
 
 <BorderPane fx:id="p" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LuckyStrike.QuickPlay">
     <center>
-        <TextArea fx:id="display" BorderPane.alignment="CENTER" />
+        <TextArea fx:id="display" text="^ press start to Begin" editable="false" BorderPane.alignment="CENTER" />
     </center>
     <bottom>
         <HBox alignment="CENTER" spacing="50.0" BorderPane.alignment="CENTER">
-            <children>
-                <ImageView fx:id="p1img" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="/Resource/LuckyStrike.png" />
-                    </image></ImageView>
-                <TextArea fx:id="p1stattext" prefHeight="150.0" prefWidth="200.0" />
-                <TextArea fx:id="p2stattext" prefHeight="150.0" prefWidth="200.0" />
-                <ImageView fx:id="p2img" fitHeight="100.0" fitWidth="100.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="/Resource/LuckyStrike.png" />
-                    </image></ImageView>
-            </children>
             <opaqueInsets>
-                <Insets />
+                <Insets/>
             </opaqueInsets>
             <padding>
-                <Insets bottom="10.0" top="10.0" />
+                <Insets bottom="10.0" top="10.0"/>
             </padding>
+            <ImageView fx:id="p1img" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="/Resource/LuckyStrike.png"/>
+            </ImageView>
+            <TextArea fx:id="p1stattext" editable="false" prefHeight="150.0" prefWidth="200.0"/>
+            <TextArea fx:id="p2stattext" editable="false" prefHeight="150.0" prefWidth="200.0"/>
+            <ImageView fx:id="p2img" fitHeight="100.0" fitWidth="100.0" nodeOrientation="RIGHT_TO_LEFT"
+                       pickOnBounds="true" preserveRatio="true">
+                <Image url="/Resource/LuckyStrike.png"/>
+            </ImageView>
         </HBox>
     </bottom>
     <top>
         <MenuBar BorderPane.alignment="CENTER">
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem fx:id="StartGame" mnemonicParsing="false" onAction="#QuickPlay" text="Start Game/Restart" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem fx:id="About" mnemonicParsing="false" text="About" />
-                    </items>
-                </Menu>
-            </menus>
+            <Menu mnemonicParsing="false" text="File">
+                <MenuItem fx:id="StartGame" mnemonicParsing="false" onAction="#QuickPlayStart"
+                          text="Start Game/Restart"/>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <MenuItem fx:id="About" mnemonicParsing="false" text="About" onAction="#About"/>
+            </Menu>
         </MenuBar>
     </top>
 </BorderPane>
