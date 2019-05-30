@@ -3,7 +3,6 @@ package LuckyStrike;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,10 +25,10 @@ public class ArcadeMode {
     private TextArea p2stattext;
     @FXML
     private Pane p;
-    @FXML
-    private MenuItem StartGame;
-    @FXML
-    private MenuItem About;
+//    @FXML
+//    private MenuItem StartGame;
+//    @FXML
+//    private MenuItem About;
     @FXML
     private ImageView p1img;
     @FXML
@@ -48,12 +47,7 @@ public class ArcadeMode {
     //Weapon Array
     private Weapon[] armory;
 
-//    //Auto Start Game Not Working Yet
-//    public void initialize() throws InterruptedException {
-//        ArcadeMode();
-//    }
-
-    public void ArcadeMode() throws InterruptedException {
+    public void ArcadeModeStart() {
 
         //preload weapon
         //Create Array of Weapon
@@ -235,7 +229,7 @@ public class ArcadeMode {
                     //Thread.sleep(500);
                     display.appendText("\n" + attacker.getCharname() + " turn. What skill do you want to use?\n");
 
-                    skillchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(attacker.getOffend(), attacker.getNoffend(), "Check my Status", "Check Enemy Status")));
+                    skillchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(attacker.getOffend(), attacker.getNoffend())));
                     //skillchoice = Integer.parseInt(console.next());
                     if (skillchoice == 3) {
                         display.appendText(attacker+"\n====================");
@@ -274,7 +268,7 @@ public class ArcadeMode {
                 //Thread.sleep(500);
                 display.appendText("\n" + defender.getCharname() + " prepare for defend - What skill do you want to use?\n");
 
-                defendchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(defender.getDefend(), defender.getNdefend(), "Check my Status", "Check Enemy Status")));
+                defendchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(defender.getDefend(), defender.getNdefend())));
                 //defendchoice = Integer.parseInt(console.next());
                 if (defendchoice == 3) {
                     display.appendText("\n" + defender+"\n====================");
@@ -432,6 +426,28 @@ public class ArcadeMode {
                 break;
             default:
                 iv.setImage(new Image("/Resource/defaultava.gif"));
+        }
+    }
+
+    //open about
+    public void About(){
+
+        try {
+
+            FXMLLoader ld = new FXMLLoader();
+            Pane root = ld.load(getClass().getResource("About.fxml").openStream());
+
+            Scene scene = new Scene(root);
+            Stage nStage = new Stage();
+            nStage.setTitle("About");
+            nStage.setScene(scene);
+
+            p.setDisable(true);
+            nStage.showAndWait();
+            p.setDisable(false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

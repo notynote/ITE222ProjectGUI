@@ -2,35 +2,29 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.text.Text?>
 <BorderPane fx:id="p" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LuckyStrike.PVPModeChoice">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
    <bottom>
       <HBox spacing="5.0" BorderPane.alignment="CENTER">
-         <children>
-            <TextField fx:id="choice" onAction="#Backtomenu" />
-            <Button fx:id="confirm" mnemonicParsing="false" onAction="#Backtomenu" text="Confirm" />
-         </children>
          <padding>
-            <Insets bottom="10.0" />
+            <Insets bottom="10.0"/>
          </padding>
       </HBox>
    </bottom>
    <center>
       <VBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button id="1" fx:id="first" mnemonicParsing="false" onAction="#setTextchoice" text="Normal Mode" />
-            <Button id="2" fx:id="two" mnemonicParsing="false" onAction="#setTextchoice" text="Attack Only" />
-         </children>
          <BorderPane.margin>
-            <Insets bottom="20.0" />
+            <Insets bottom="10.0"/>
          </BorderPane.margin>
+         <Button id="1" fx:id="first" mnemonicParsing="false" onAction="#setTextchoice" text="Normal Mode"/>
+         <Button id="2" fx:id="two" mnemonicParsing="false" onAction="#setTextchoice" text="Attack Only"/>
       </VBox>
    </center>
 </BorderPane>

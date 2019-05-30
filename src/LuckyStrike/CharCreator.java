@@ -1,5 +1,6 @@
 package LuckyStrike;
 
+import GameCode.Character;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,14 +10,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class CharCreator {
 
 
     //GUI Variable
     @FXML
     private TextArea display;
-    @FXML
-    private Button CreateTestChar;
+//    @FXML
+//    private Button CreateTestChar;
     @FXML
     private Button BackToMainMenu;
     @FXML
@@ -63,9 +66,9 @@ public class CharCreator {
             p.setDisable(false);
 
             String charname = nameinput.input.getText();
-            return new GameCode.Character(charname);
+            return new Character(charname);
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

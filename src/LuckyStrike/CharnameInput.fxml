@@ -11,17 +11,16 @@
 <BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LuckyStrike.CharnameInput">
    <center>
       <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="What the name of Your Character?" textAlignment="CENTER">
-               <font>
-                  <Font size="16.0" />
-               </font></Text>
-            <TextField fx:id="input" onAction="#Backtomenu" />
-            <Button fx:id="confirm" mnemonicParsing="false" onAction="#Backtomenu" text="Enter" />
-         </children>
          <BorderPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
          </BorderPane.margin>
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="What the name of Your Character?" textAlignment="CENTER">
+            <font>
+               <Font size="16.0"/>
+            </font>
+         </Text>
+         <TextField fx:id="input" onAction="#Backtomenu"/>
+         <Button fx:id="confirm" mnemonicParsing="false" onAction="#Backtomenu" text="Enter"/>
       </VBox>
    </center>
 </BorderPane>

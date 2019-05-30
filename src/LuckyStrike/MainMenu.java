@@ -5,13 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.net.URISyntaxException;
 
 public class MainMenu {
@@ -31,8 +31,10 @@ public class MainMenu {
     private Pane p;
     @FXML
     private CheckBox musictoggle;
+    @FXML
+    private Label textname;
 
-    int musicstatus = 1;
+    private int musicstatus = 1;
 
 
     //Arcade Mode Method
@@ -53,7 +55,6 @@ public class MainMenu {
 
             FXMLLoader ld = new FXMLLoader();
             Pane root = ld.load(getClass().getResource("ArcadeMode.fxml").openStream());
-            ArcadeMode arcade = (ArcadeMode) ld.getController();
 
             Scene scene = new Scene(root);
             Stage nStage = new Stage();
@@ -89,7 +90,6 @@ public class MainMenu {
 
             FXMLLoader ld = new FXMLLoader();
             Pane root = ld.load(getClass().getResource("QuickPlay.fxml").openStream());
-            QuickPlay quickplay = (QuickPlay) ld.getController();
 
             Scene scene = new Scene(root);
             Stage nStage = new Stage();
@@ -126,7 +126,6 @@ public class MainMenu {
 
             FXMLLoader ld = new FXMLLoader();
             Pane root = ld.load(getClass().getResource("PVP.fxml").openStream());
-            PVP PVPs = (PVP) ld.getController();
 
             Scene scene = new Scene(root);
             Stage nStage = new Stage();
@@ -157,11 +156,10 @@ public class MainMenu {
 
             FXMLLoader ld = new FXMLLoader();
             Pane root = ld.load(getClass().getResource("CharCreator.fxml").openStream());
-            CharCreator cccontrol = (CharCreator) ld.getController();
 
             Scene scene = new Scene(root);
             Stage nStage = new Stage();
-            nStage.setTitle("Charactor Creator");
+            nStage.setTitle("Character Creator");
             nStage.setScene(scene);
 
             p.setDisable(true);
@@ -175,18 +173,13 @@ public class MainMenu {
     }
 
     //Replace a song if Back on main Menu
-    public void SongMainmenu(Media media){
+    private void SongMainmenu(Media media){
         //stop to make sure the music is not carry over
         Main.player.stop();
         if (musicstatus == 1) {
             Main.player = new MediaPlayer(media);
             //loop music
-            Main.player.setOnEndOfMedia(new Runnable() {
-                @Override
-                public void run() {
-                    Main.player.seek(Duration.ZERO);
-                }
-            });
+            Main.player.setOnEndOfMedia(() -> Main.player.seek(Duration.ZERO));
             Main.player.play();
         }
     }
@@ -197,12 +190,7 @@ public class MainMenu {
             Main.player.stop();
             musicstatus = 1;
             //loop music
-            Main.player.setOnEndOfMedia(new Runnable() {
-                @Override
-                public void run() {
-                    Main.player.seek(Duration.ZERO);
-                }
-            });
+            Main.player.setOnEndOfMedia(() -> Main.player.seek(Duration.ZERO));
             Main.player.play();
         } else {
             Main.player.stop();

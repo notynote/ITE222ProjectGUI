@@ -2,6 +2,9 @@ package GameCode;
 
 import java.util.Random;
 
+/**
+ * This class contain the constructor for any character in the game
+ */
 public class Character {
 
     //variable
@@ -64,6 +67,11 @@ public class Character {
     }
 
     //Default for CPU
+
+    /**
+     *
+     * @param level indentify the level of cpu that want to be create
+     */
     Character(int level){
 
         //determine cpu level as name

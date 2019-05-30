@@ -1,6 +1,5 @@
 package LuckyStrike;
 
-import GameCode.CPU;
 import GameCode.Helper;
 import GameCode.Skill;
 import GameCode.Weapon;
@@ -9,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -55,7 +53,7 @@ public class PVP {
     //Weapon Array
     private Weapon[] armory;
 
-    public void PVP() throws InterruptedException {
+    public void PVPStart() throws InterruptedException {
 
         //preload weapon
         //Create Array of Weapon
@@ -262,7 +260,7 @@ public class PVP {
                 //Thread.sleep(500);
                 display.appendText("\n" + defender.getCharname() + " prepare for defend - What skill do you want to use?\n");
 
-                defendchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(defender.getDefend(), defender.getNdefend(), "Check my Status", "Check Enemy Status")));
+                defendchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(defender.getDefend(), defender.getNdefend())));
                 //defendchoice = Integer.parseInt(console.next());
                 if (defendchoice == 3) {
                     display.appendText("\n" + defender+"\n====================");
@@ -340,7 +338,7 @@ public class PVP {
             //Thread.sleep(500);
             display.appendText("\n" + attacker.getCharname() + " turn. What skill do you want to use?\n");
 
-            skillchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(attacker.getOffend(), attacker.getNoffend(), "Check my Status", "Check Enemy Status")));
+            skillchoice = Integer.parseInt(Objects.requireNonNull(GUIHelper.getSkillchoice(attacker.getOffend(), attacker.getNoffend())));
             //skillchoice = Integer.parseInt(console.next());
             if (skillchoice == 3) {
                 display.appendText("\n" + attacker+"\n=================");
@@ -448,13 +446,35 @@ public class PVP {
             nStage.showAndWait();
             //p.setDisable(false);
 
-            return pvpmode.choice.getText();
+            return pvpmode.sendBack;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return null;
+    }
+
+    //open about
+    public void About(){
+
+        try {
+
+            FXMLLoader ld = new FXMLLoader();
+            Pane root = ld.load(getClass().getResource("About.fxml").openStream());
+
+            Scene scene = new Scene(root);
+            Stage nStage = new Stage();
+            nStage.setTitle("About");
+            nStage.setScene(scene);
+
+            p.setDisable(true);
+            nStage.showAndWait();
+            p.setDisable(false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

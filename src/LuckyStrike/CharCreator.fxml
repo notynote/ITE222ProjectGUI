@@ -13,17 +13,14 @@
    </center>
    <bottom>
       <VBox alignment="CENTER" prefHeight="86.0" prefWidth="600.0" spacing="20.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="CreateTestChar" mnemonicParsing="false" onAction="#TestChar" text="Create Test Character" />
-            <Button fx:id="BackToMainMenu" mnemonicParsing="false" onAction="#Backtomenu" text="Back to Main Menu" />
-         </children>
+         <Button fx:id="CreateTestChar" mnemonicParsing="false" onAction="#TestChar" text="Create Test Character"/>
+         <Button fx:id="BackToMainMenu" mnemonicParsing="false" onAction="#Backtomenu" text="Back to Main Menu"/>
       </VBox>
    </bottom>
    <left>
-      <ImageView fx:id="chartestimg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-         <image>
-            <Image url="/Resource/LuckyStrike.png" />
-         </image>
+      <ImageView fx:id="chartestimg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true"
+                 BorderPane.alignment="CENTER">
+         <Image url="/Resource/LuckyStrike.png"/>
       </ImageView>
    </left>
 </BorderPane>
