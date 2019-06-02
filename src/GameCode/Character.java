@@ -5,24 +5,22 @@ import java.util.Random;
 /**
  * This class contain the constructor for any character in the game
  */
-public class Character {
+public abstract class Character {
 
     //variable
     public int hp;
-    private int str;
-    private int wis;
-    private int dex;
-    private int luck;
+    protected int str;
+    protected int wis;
+    protected int dex;
+    protected int luck;
     private String offend,defend,noffend,ndefend = "";
-    private String charclass,charname;
+    protected String charclass,charname;
 
     //Create new character
     public Character(String name) {
 
         //Name
         this.charname = name;
-        //System.out.println("What the name of your Character?");
-        //this.charname = console.nextLine();
 
         //Random attribute
         this.hp = Helper.getRandomNumberInRange(100,500);
@@ -31,36 +29,8 @@ public class Character {
         this.dex = Helper.getRandomNumberInRange(1,9);
         this.luck = Helper.getRandomNumberInRange(1,9);
 
-        //this function allow user to choose the class if they know a keyword
-        //check if user put the keyword for class
-        switch (name.toLowerCase()){
-            case "mage":
-            case "wizard":
-            case "boomboomboom":
-                this.charclass = "Mage";
-                break;
-            case "warrior":
-            case "swordsmen":
-            case "shubshubshub":
-                this.charclass = "Warrior";
-                break;
-            case "archer":
-            case "hunter":
-            case "pewpewpew":
-                this.charclass = "Archer";
-                break;
-            case "notynotethehandsomeguy":
-                this.charclass = "God";
-                this.hp = 999999;
-                this.str = 8888;
-                this.wis = 7777;
-                this.dex = 6666;
-                break;
-            default: //no class selected
-                //Random Class
-                this.charclass = getRandomClass(1,3);
-
-        }
+        //Random Class
+        this.charclass = getRandomClass(1,3);
 
         //Skill
         Skill(charclass);
@@ -177,11 +147,9 @@ public class Character {
     //Random Class Method
     private String getRandomClass(int x, int y){
 
-        Random r = new Random();
-
         int classint;
 
-        classint = r.nextInt((y-x)+1) + x;
+        classint = Helper.getRandomNumberInRange(1,3);
         switch (classint){
             case 1:
                 return "Warrior";
@@ -213,10 +181,6 @@ public class Character {
             default:
                 offend = "Kill Command";
                 defend = "Disappear";
-//                offend2 = "Fire";
-//                defend2 = "Ice Wall";
-//                offend3 = "Shoot";
-//                defend3 = "Dodge";
         }
         //put normal attack
         noffend = "Normal Attack";
@@ -234,11 +198,11 @@ public class Character {
     //get methods
 
     public String getCharname() {
-        return charname;
+        return this.charname;
     }
 
     public String getCharclass() {
-        return charclass;
+        return this.charclass;
     }
 
 //    public int getHp(){
@@ -266,15 +230,15 @@ public class Character {
     }
 
     public String getNoffend() {
-        return noffend;
+        return this.noffend;
     }
 
     public String getNdefend() {
-        return ndefend;
+        return this.ndefend;
     }
 
     public int getLuck() {
-        return luck;
+        return this.luck;
     }
 }
 
