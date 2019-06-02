@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class CharCreator {
+public class CharCreator extends Battle{
 
 
     //GUI Variable
@@ -31,12 +31,12 @@ public class CharCreator {
     public void TestChar() {
 
         display.clear();
-        GameCode.Character testchar = makeChar();
+        GameCode.Player testchar = makePlayer(p);
         display.appendText("====================\n" + testchar + "\n====================");
 
         //set char image
-        int testcharclass = GUIHelper.getSetimage(testchar.getCharclass());
-        ArcadeMode.setClassimg(testcharclass, chartestimg);
+        int testcharclass = Battle.getSetimage(testchar.getCharclass());
+        Battle.setClassimg(testcharclass, chartestimg);
 
     }
 
@@ -48,31 +48,8 @@ public class CharCreator {
         stage.close();
     }
 
-    //define Character name method
-    private GameCode.Character makeChar(){
+    @Override
+    void Annoucer(int winner) {
 
-        try {
-            FXMLLoader ld = new FXMLLoader();
-            Pane root = ld.load(getClass().getResource("CharnameInput.fxml").openStream());
-            CharnameInput nameinput = ld.getController();
-
-            Scene scene = new Scene(root);
-            Stage nStage = new Stage();
-            nStage.setTitle("Character Name Input");
-            nStage.setScene(scene);
-
-            p.setDisable(true);
-            nStage.showAndWait();
-            p.setDisable(false);
-
-            String charname = nameinput.input.getText();
-            return new Character(charname);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return new GameCode.Character("Test");
     }
-
 }
