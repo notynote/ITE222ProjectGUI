@@ -1,5 +1,6 @@
 # ITE222ProjectGUI
-by Pathompong Phongsaporamut
+by Pathompong Phongsaporamut, Pakbhumi Boonkrob, Leelavadee Chimchio
+Advisor and Instructor A. Apiporn Simapornchai
 
 This is a java project under the topic "Java Game" for Programming 2 (ITE222) Project at Stamford University, Bangkok, Thailand.
 
