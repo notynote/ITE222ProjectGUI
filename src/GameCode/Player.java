@@ -2,7 +2,10 @@ package GameCode;
 
 public class Player extends Character {
 
-    //default constructor (random cpu level)
+    /**+
+     * Default constructor for player character this also check the name input if it match the secreat name that lock onto a class
+     * @param name come from the input window for player to decide their own character name
+     */
     public Player(String name){
         super(name);
 

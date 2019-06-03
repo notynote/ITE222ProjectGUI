@@ -14,6 +14,11 @@ import javafx.util.Duration;
 
 import java.net.URISyntaxException;
 
+/**+
+ * A controller of main menu scene which act as a hub of the game
+ * this window allows user to choose what mode they want to play
+ * this window also handle the music in all the game mode
+ */
 public class MainMenu {
 
     //GUI Variable

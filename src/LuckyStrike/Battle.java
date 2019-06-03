@@ -11,6 +11,10 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**+
+ * This is a master mind of the whole battle system in all three mode
+ * Battle class contain all the componant of battle
+ */
 public abstract class Battle {
 
     //Battle variable
@@ -24,6 +28,9 @@ public abstract class Battle {
 
     abstract void Annoucer(int winner);
 
+    /**+
+     * Preload the weapon when game start
+     */
     //Weapon Array
     private Weapon[] armory;
 
@@ -41,15 +48,20 @@ public abstract class Battle {
         return this.armory;
     }
 
-
-
-    //Random Starter method
+    /**+
+     * Random fight starter
+     * @return the starter
+     */
     int getStarter() {
 
         return GameCode.Helper.getRandomNumberInRange(1,2);
     }
 
-    //define Character method
+    /**+
+     * Make a new character object for the player with the custom name
+     * @param p the game scene
+     * @return the player character object
+     */
     GameCode.Player makePlayer(Pane p){
 
         try {
@@ -76,6 +88,18 @@ public abstract class Battle {
         return new GameCode.Player("Test");
     }
 
+    /**+
+     * Method to keep track of the turn and a turn owner
+     * @param Starter who goes first
+     * @param player1 Player character object
+     * @param battleai cpu that user fighting with
+     * @param p1img the avatar of player
+     * @param p2img the avatar of cpu
+     * @param display the console
+     * @param p1stattext the textarea that show play status
+     * @param p2stattext the textarea that show cpu status
+     * @return the winner of the fight
+     */
     int FightingPVC(int Starter, Player player1, CPU battleai, ImageView p1img, ImageView p2img, TextArea display, TextArea p1stattext, TextArea p2stattext){
 
         if (Starter == 1){ //player1 start first
@@ -117,8 +141,17 @@ public abstract class Battle {
 
     }
 
-    //player vs cpu fight mode
-    //player choose then cpu random
+    /**+
+     * The battle phases for player vs cpu this method handle everything inside a turn
+     * @param player who turn is it
+     * @param player1 player character
+     * @param battleai cpu character
+     * @param p1img player avatar
+     * @param p2img cpu avatar
+     * @param display the console
+     * @param p1stattext the textarea that show play status
+     * @param p2stattext the textarea that show cpu status
+     */
     private void playvscpu(int player,Player player1,CPU battleai,ImageView p1img,ImageView p2img,TextArea display,TextArea p1stattext,TextArea p2stattext) {
 
         //Variable for cpu skill random
@@ -133,7 +166,7 @@ public abstract class Battle {
             defender = player1;
         }
 
-        //seperate player and cpu way to attack
+        //separate player and cpu way to attack
         String attackerskill;
         if (attacker == player1){
 
@@ -195,6 +228,7 @@ public abstract class Battle {
             int p1classtoimg = getSetimage(player1.getCharclass());
             setClassimg(p1classtoimg,p1img);
         }
+
         //calculation for final damage
         //check the element advantage to determine final damage
         int finaldmg = ElementCheck(attackerskill, defenderskill, attackerdmg);
@@ -214,7 +248,12 @@ public abstract class Battle {
 
     }
 
-
+    /**+
+     * Ask player what skill they want to use
+     * @param one name of skill based on character class
+     * @param two name of normal attack or defend based on the player rold as attacker or defender
+     * @return the chosen skill
+     */
     private static String getSkillchoice(String one, String two){
 
         try {
@@ -243,7 +282,11 @@ public abstract class Battle {
         return null;
     }
 
-    //get class to set image
+    /**+
+     * check the character class before choosing the correct avatar
+     * @param charclass class of the character
+     * @return the number assign to class
+     */
     static int getSetimage(String charclass){
 
         if (charclass.equalsIgnoreCase("Warrior")){
@@ -258,7 +301,13 @@ public abstract class Battle {
 
     }
 
-    //Element Checker for final damage
+    /**+
+     * Check avantage between choosed skill and calculate the final damage
+     * @param attackerskill skill of the attacker
+     * @param defenderskill skill  of defender
+     * @param attackerdmg original damage
+     * @return the final damage
+     */
     static int ElementCheck(String attackerskill, String defenderskill, int attackerdmg){
 
         int finaldmg;
@@ -332,7 +381,12 @@ public abstract class Battle {
         return finaldmg;
     }
 
-    //Attacking Method
+    /**+
+     * Attacking Method perform get the correct information before passing onto the damage calculation
+     * @param skillchoice chosen skill
+     * @param attacker attacker character object to check the class so the program know what part of status to acquire
+     * @return original damage
+     */
     static int Attacking(int skillchoice, GameCode.Character attacker) {
 
         String attackerskill = "";
@@ -367,6 +421,10 @@ public abstract class Battle {
         return Skill.OffendDamage(attackerskill, attackerstatus);
     }
 
+    /**+
+     * Popup windows ask user what skill they want to use
+     * @param display the console area
+     */
     void ChooseAttackSkill(TextArea display) {
         try {
             //Thread.sleep(500);
@@ -383,6 +441,10 @@ public abstract class Battle {
         }
     }
 
+    /**+
+     * Popup windows ask user what skill they want to use for defend
+     * @param display the console area
+     */
     void ChooseDefendSkill(TextArea display) {
         try {
             //Thread.sleep(500);
@@ -400,6 +462,15 @@ public abstract class Battle {
         }
     }
 
+    /**+
+     * Check the dodge chace and print the result
+     * @param display the console area
+     * @param attackerskill Skill of attacker
+     * @param defenderskill Skill of defender
+     * @param attackerdmg original damage
+     * @param finaldmg final damage
+     * @param mode check if player play on normal mode or attack only mode
+     */
     void checkDodge(TextArea display,String attackerskill,String defenderskill,int attackerdmg, int finaldmg,int mode){
 
         //calculate dodge
@@ -424,6 +495,10 @@ public abstract class Battle {
         }
     }
 
+    /**+
+     * Check the weapon chance and print the result
+     * @param display the console area
+     */
     void weaponUsage(TextArea display){
         //random found weapon chance (20%)
         int foundweapon = Helper.getRandomNumberInRange(1, 5);
@@ -513,7 +588,10 @@ public abstract class Battle {
     }
 
 
-    //open about
+    /**+
+     * Open about page
+     * @param p
+     */
     void About(Pane p){
 
         try {

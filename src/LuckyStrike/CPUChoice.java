@@ -8,6 +8,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**+
+ * Controller for CPU difficulty choosing window for Quick play Mode
+ */
 public class CPUChoice {
 
     @FXML

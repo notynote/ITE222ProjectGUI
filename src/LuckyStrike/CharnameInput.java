@@ -5,6 +5,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**+
+ * Controller for windows popup that allows user to input the desired name
+ */
 public class CharnameInput {
 
     //GUI Variable

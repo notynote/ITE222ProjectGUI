@@ -14,6 +14,12 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**+
+ * A controller for Quick play mode
+ * this mode allow user to fight with single CPU Character.
+ * player determine what level of a cpu they are fighting
+ * the higher a level = the harder it get
+ */
 public class QuickPlay extends Battle{
 
     //GUI Variable
@@ -108,6 +114,10 @@ public class QuickPlay extends Battle{
 
     }
 
+    /**+
+     * Announce the winner
+     * @param winner
+     */
     //Abstract method
     void Annoucer(int winner) {
 
@@ -127,7 +137,10 @@ public class QuickPlay extends Battle{
 
     }
 
-
+    /**+
+     * this method call the popup windows to let's player choose the difficulty
+     * @return the chosen difficulty
+     */
     private String getCPUDiff(){
 
         try {
