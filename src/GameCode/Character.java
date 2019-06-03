@@ -16,6 +16,10 @@ public abstract class Character {
     private String offend,defend,noffend,ndefend = "";
     protected String charclass,charname;
 
+    /**+
+     * Constructor for player
+     * @param name identify the name of the character this will be assign by a user
+     */
     //Create new character
     public Character(String name) {
 
@@ -39,7 +43,7 @@ public abstract class Character {
     //Default for CPU
 
     /**
-     *
+     * Constructor for AI
      * @param level indentify the level of cpu that want to be create
      */
     Character(int level){
@@ -144,6 +148,12 @@ public abstract class Character {
         Skill(charclass);
     }
 
+    /**+
+     * This method ramdom the class that will be assign into a character
+     * @param x represent minimum number
+     * @param y represent maximum number
+     * @return class name to be assign into an object
+     */
     //Random Class Method
     private String getRandomClass(int x, int y){
 
@@ -163,6 +173,10 @@ public abstract class Character {
 
     }
 
+    /**+
+     * this method Assign skill according to character class
+     * @param charclass in a character class from a caller
+     */
     //Assign Skill
     private void Skill(String charclass){
         switch (charclass){

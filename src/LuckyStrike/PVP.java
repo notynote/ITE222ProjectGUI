@@ -11,6 +11,11 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**+
+ * PVP controller for pvp mode that allows two user to fight with each other
+ * this utilize a lot of method from battle.java but also have a pvp method of it own
+ * since the mode require two player instead of one player and a cpu
+ */
 public class PVP extends Battle {
 
     //GUI Variable
@@ -36,6 +41,9 @@ public class PVP extends Battle {
     private GameCode.Player player1;
     private GameCode.Player player2;
 
+    /**+
+     * Allow user to start the pvp mode
+     */
     public void PVPStart() throws InterruptedException {
 
         //preload weapon
@@ -83,8 +91,13 @@ public class PVP extends Battle {
 
     }
 
-    //Fighting Method for Player vs Player
-    private int FightingPvP(int Starter) throws InterruptedException{
+    /**+
+     * Fighting Method for Player vs Player which allow user to choose a game mode
+     * Method also to keep track of the turn and a turn owner
+     * @param Starter the one who goes first
+     * @return the winner of the fight
+     */
+    private int FightingPvP(int Starter){
         //variable
         //int hasWinner = 0;
         int modeselect = 0;
@@ -152,6 +165,10 @@ public class PVP extends Battle {
 
     }
 
+    /**+
+     * Annouce who win the fight
+     * @param winner
+     */
     //Abstract method
     void Annoucer(int winner){
 
@@ -169,6 +186,10 @@ public class PVP extends Battle {
 
     }
 
+    /**+
+     * The battle phase for pvp in normal mode
+     * @param player turn owner
+     */
     private void fightturn(int player) {
 
         //ask user to choose attack skill
@@ -232,7 +253,10 @@ public class PVP extends Battle {
         }
     }
 
-    //attack only method
+    /**+
+     * Battle phases for attackonly mode
+     * @param player turn owner
+     */
     private void AttackOnly(int player) {
 
         if (player == 1) {
@@ -283,7 +307,10 @@ public class PVP extends Battle {
 
     }
 
-
+    /**+
+     * Popup windows that ask user what mode they want to play
+     * @return play mode
+     */
     private String PVPModeSelect(){
 
         try {

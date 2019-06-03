@@ -8,6 +8,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**+
+ * Controller for skill choosing withing the battle phases
+ * this popup allows user to select their desire skill
+ */
 public class SkillChoice {
 
     @FXML

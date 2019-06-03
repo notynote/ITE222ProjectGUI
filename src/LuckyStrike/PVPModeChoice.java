@@ -7,6 +7,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**+
+ * A controller of a pvp mode chosen scene
+ * this scene allow player to choose what mode they want to play
+ */
 public class PVPModeChoice {
 
     @FXML

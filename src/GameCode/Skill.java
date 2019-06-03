@@ -3,13 +3,21 @@ package GameCode;
 //import java util
 import java.util.Random;
 
+/**+
+ * This class handle a skill damage calculation and dodge chance
+ */
 public class Skill {
 
     //Random object
 
     static Random rsd = new Random();
 
-    //Calculate Skill Damage
+    /**+
+     * Calculate Skill Damage using character status and randomization
+     * @param usedskill is a skill that player chose in battle
+     * @param cstatus is a status of the character object that attacking
+     * @return the attack damage
+     */
     public static int OffendDamage(String usedskill, int cstatus){
 
         //variable
@@ -38,7 +46,11 @@ public class Skill {
         return offdamage;
     }
 
-    //Calculate Dodge
+    /**+
+     * Calculate Dodge by using character luck to random the number if it match with 2 4 8 then the character dodged successfully
+     * @param luck is from the character luck status
+     * @return the result of a dodge 1 is dodged and 0 is failed to dodge
+     */
     public static int Dodge(int luck){
         int chance = 0;
 

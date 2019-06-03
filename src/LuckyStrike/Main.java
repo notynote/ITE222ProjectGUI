@@ -9,6 +9,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**+
+ * Main method launch the game with a main menu scene and handle the music in the game
+ */
 public class Main extends Application {
 
     //Make it Static so GC don't clear player and cause music to stop

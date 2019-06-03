@@ -9,6 +9,11 @@ import javafx.scene.layout.Pane;
 
 import GameCode.*;
 
+/**+
+ * A controller for arcade mode
+ * this mode allow user to fight with 10 CPU Character.
+ * the higher a level = the harder it get
+ */
 public class ArcadeMode extends Battle{
 
     //GUI Variable
@@ -33,7 +38,9 @@ public class ArcadeMode extends Battle{
     private GameCode.Player player1;
     private GameCode.CPU battleai = null;
 
-
+    /**+
+     * Allow user to start the game
+     */
     public void ArcadeModeStart() {
 
         //preload weapon
@@ -106,6 +113,10 @@ public class ArcadeMode extends Battle{
 
     }
 
+    /**+
+     * Annouce the winner of the game
+     * @param winner a result of the battle
+     */
     //Abstract method
     void Annoucer(int winner){
 

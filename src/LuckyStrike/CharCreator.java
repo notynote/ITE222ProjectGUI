@@ -10,8 +10,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
+/**+
+ * A controller for character creator windows
+ * this windows allow user to create a test character
+ */
 public class CharCreator extends Battle{
 
 
@@ -27,7 +29,9 @@ public class CharCreator extends Battle{
     @FXML
     private ImageView chartestimg;
 
-    //Create test Char Method
+    /**+
+     * Method to create a test character using the inputted name
+     */
     public void TestChar() {
 
         display.clear();
