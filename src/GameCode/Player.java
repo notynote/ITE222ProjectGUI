@@ -28,6 +28,7 @@ public class Player extends Character {
                 this.charclass = "Archer";
                 break;
             case "notynotethehandsomeguy":
+            case "apipornthehandsome":
                 this.charclass = "God";
                 this.hp = 999999;
                 this.str = 8888;
